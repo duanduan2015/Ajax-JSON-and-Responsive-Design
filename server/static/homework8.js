@@ -89,6 +89,7 @@ app.controller('customerCtrl', function($scope, $http) {
             });
     $scope.stateOptions = function() {
         var opts = [];
+        opts.push("All States");
         for (var k in stateNames) {
             opts.push(stateNames[k]);
         }
