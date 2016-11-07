@@ -13,6 +13,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
         <script src="homework8.js"></script>
+        <script src="dirPagination.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link href="homework8.css" rel="stylesheet">
         <script src="https://use.fontawesome.com/d6486e71bf.js"></script>
@@ -58,15 +59,13 @@
                                         <div class="panel-body">
                                             <b>Legislators By State</b>
                                             <div class="pull-right">
-                                                <select class="form-control">
-                                                    <option selected>All States</option>
-                                                </select>
+                                                <select class="form-control" ng-model="statefilter" ng-options="opt for opt in stateOptions"></select>
                                             </div>
                                         </div>
                                     </div>
                                     <table class="table table-hover">
                                         <tr><th>Party</th><th>Nmae</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr>
-                                        <tr ng-repeat="x in legislators">
+                                        <tr dir-paginate="x in legislators | stateFilter: statefilter | itemsPerPage: 10 | orderBy:'last_name' | orderBy: 'state_name'" current-page="currentPage" pagination-id="state-table">
                                             <td><img style="width:30px" ng-src="{{ partyLogo(x.party) }}"></td>
                                             <td>{{ x.first_name + ", " + x.last_name}}</td>
                                             <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
@@ -75,6 +74,9 @@
                                             <td><button type="button" class="btn btn-primary">View Details</button></td>
                                         </tr>
                                     </table>
+                                    <div class="text-center">
+                                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="state-table"></dir-pagination-controls>
+                                    </div>
                                 </div>
                                 <div id="house" class="tab-pane fade">
                                     <div class="panel panel-default" style="background-color:#a2a3a5">
@@ -87,7 +89,7 @@
                                     </div>
                                     <table class="table table-hover">
                                         <tr><th>Party</th><th>Nmae</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr>
-                                        <tr ng-repeat="x in legislatorsByHouse">
+                                        <tr dir-paginate="x in legislatorsByHouse | itemsPerPage: 10 | orderBy:'last_name' | orderBy: 'state_name'" current-page="currentPage" pagination-id="house-table">
                                             <td><img style="width:30px" ng-src="{{ partyLogo(x.party) }}"></td>
                                             <td>{{ x.first_name + ", " + x.last_name}}</td>
                                             <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
@@ -96,6 +98,9 @@
                                             <td><button type="button" class="btn btn-primary">View Details</button></td>
                                         </tr>
                                     </table>
+                                    <div class="text-center">
+                                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="house-table"></dir-pagination-controls>
+                                    </div>
                                 </div>
                                 <div id="senate" class="tab-pane fade">
                                     <div class="panel panel-default" style="background-color:#a2a3a5">
@@ -108,7 +113,7 @@
                                     </div>
                                     <table class="table table-hover">
                                         <tr><th>Party</th><th>Nmae</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr>
-                                        <tr ng-repeat="x in legislatorsBySenate">
+                                        <tr dir-paginate="x in legislatorsBySenate | itemsPerPage: 10| orderBy:'last_name' | orderBy: 'state_name'" current-page="currentPage" pagination-id="senate-table">
                                             <td><img style="width:30px" ng-src="{{ partyLogo(x.party) }}"></td>
                                             <td>{{ x.first_name + ", " + x.last_name}}</td>
                                             <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
@@ -117,6 +122,9 @@
                                             <td><button type="button" class="btn btn-primary">View Details</button></td>
                                         </tr>
                                     </table>
+                                    <div class="text-center">
+                                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="senate-table"></dir-pagination-controls>
+                                    </div>
                                 </div>
                             </div>
                         </div>
