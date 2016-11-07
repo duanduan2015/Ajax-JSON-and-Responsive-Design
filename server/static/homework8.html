@@ -51,8 +51,8 @@
                             <li><a data-toggle="tab" href="#house">House</a></li>
                             <li><a data-toggle="tab" href="#senate">Senate</a></li>
                         </ul>
-                        <div class="tab-content" style="width:96%;margin-left:2%;margin-top:2%;">
-                            <div ng-app="myApp" ng-controller="customerCtrl">
+                        <div ng-app="myApp" ng-controller="customerCtrl" style="width:96%;margin-left:2%;margin-top:2%;" >
+                            <div class="tab-content">
                                 <div id="state" class="tab-pane fade in active">
                                     <div class="panel panel-default" style="background-color:#a2a3a5">
                                         <div class="panel-body">
@@ -77,12 +77,46 @@
                                     </table>
                                 </div>
                                 <div id="house" class="tab-pane fade">
-                                    <h3>Menu 1</h3>
-                                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                    <div class="panel panel-default" style="background-color:#a2a3a5">
+                                        <div class="panel-body">
+                                            <b>Legislators By House</b>
+                                            <div class="pull-right">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table class="table table-hover">
+                                        <tr><th>Party</th><th>Nmae</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr>
+                                        <tr ng-repeat="x in legislatorsByHouse">
+                                            <td><img style="width:30px" ng-src="{{ partyLogo(x.party) }}"></td>
+                                            <td>{{ x.first_name + ", " + x.last_name}}</td>
+                                            <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
+                                            <td>{{ districtNum(x.district) }}</td>
+                                            <td>{{ x.state_name }}</td>
+                                            <td><button type="button" class="btn btn-primary">View Details</button></td>
+                                        </tr>
+                                    </table>
                                 </div>
                                 <div id="senate" class="tab-pane fade">
-                                    <h3>Menu 2</h3>
-                                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                    <div class="panel panel-default" style="background-color:#a2a3a5">
+                                        <div class="panel-body">
+                                            <b>Legislators By House</b>
+                                            <div class="pull-right">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table class="table table-hover">
+                                        <tr><th>Party</th><th>Nmae</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr>
+                                        <tr ng-repeat="x in legislatorsBySenate">
+                                            <td><img style="width:30px" ng-src="{{ partyLogo(x.party) }}"></td>
+                                            <td>{{ x.first_name + ", " + x.last_name}}</td>
+                                            <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
+                                            <td>{{ districtNum(x.district) }}</td>
+                                            <td>{{ x.state_name }}</td>
+                                            <td><button type="button" class="btn btn-primary">View Details</button></td>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
                         </div>

@@ -4,7 +4,17 @@ $(document).ready(function($) {
 var app = angular.module('myApp', []);
 app.controller('customerCtrl', function($scope, $http) {
     $http.get("../main.php?query=legislators")
-            .then(function (response) {$scope.legislators = response.data.results;});
+            .then(function (response) {
+                $scope.legislators = response.data.results;
+                //$scope.legislatorsByHouse = response.data.results;
+                $scope.legislatorsByHouse= jQuery.grep($scope.legislators, function(obj, i) {
+                    return obj.chamber == "house"
+               });
+                $scope.legislatorsBySenate= jQuery.grep($scope.legislators, function(obj, i) {
+                    return obj.chamber == "senate"
+               });
+            });
+    
     $scope.partyLogo = function(s) {
         if (s == "R") {
             return "images/r.png";
