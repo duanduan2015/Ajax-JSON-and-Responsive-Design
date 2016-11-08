@@ -1,84 +1,126 @@
-<h2 class="page-header">Legislators</h2>
+<h2 class="page-header" style="margin-top:5px">Legislators</h2>
 <div style="background-color:white">
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#state">By State</a></li>
-        <li><a data-toggle="tab" href="#house">House</a></li>
-        <li><a data-toggle="tab" href="#senate">Senate</a></li>
-    </ul>
-    <div style="width:96%;margin-left:2%;margin-top:2%;" >
-        <div class="tab-content">
-            <div id="state" class="tab-pane fade in active">
-                <div class="panel panel-default" style="background-color:#a2a3a5">
-                    <div class="panel-body">
-                        <b>Legislators By State</b>
-                        <div class="pull-right">
-                            <select class="form-control" ng-model="selected" ng-init="selected='All States'" ng-options="opt for opt in stateOptions">
-                            </select>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li class="item1 active"></li>
+            <li class="item2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#state">By State</a></li>
+                    <li><a data-toggle="tab" href="#house">House</a></li>
+                    <li><a data-toggle="tab" href="#senate">Senate</a></li>
+                </ul>
+                <div style="width:96%;margin-left:2%;margin-top:2%;" >
+                    <div class="tab-content">
+                        <div id="state" class="tab-pane fade in active">
+                            <table class="table table-hover">
+                                <tr>
+                                    <td colspan="6" class="well well-sm">
+                                        <b>Legislators By State</b>
+                                        <div class="pull-right">
+                                            <select class="form-control" ng-model="selected" ng-init="selected='All States'" ng-options="opt for opt in stateOptions">
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr><th>Party</th><th>Nmae</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr>
+                                <tr dir-paginate="x in legislators | stateFilter: selected | itemsPerPage: 10 | orderBy:'last_name' | orderBy: 'state_name'" current-page="legislatorCurrentPage" pagination-id="state-table">
+                                    <td><img style="width:30px" ng-src="{{ partyLogo(x.party) }}"></td>
+                                    <td>{{ x.first_name + ", " + x.last_name}}</td>
+                                    <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
+                                    <td>{{ districtNum(x.district) }}</td>
+                                    <td>{{ x.state_name }}</td>
+                                    <td><button type="button" class="btn btn-primary" ng-click="clickViewDetails(x)" >View Details</button></td>
+                                </tr>
+                            </table>
+                            <div class="text-center">
+                                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="state-table"></dir-pagination-controls>
+                            </div>
+                        </div>
+                        <div id="house" class="tab-pane fade">
+                            <div class="panel panel-default" style="background-color:#a2a3a5">
+                                <div class="panel-body">
+                                    <b>Legislators By House</b>
+                                    <div class="pull-right">
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table table-hover">
+                                <tr><th>Party</th><th>Nmae</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr>
+                                <tr dir-paginate="x in legislatorsByHouse | itemsPerPage: 10 | orderBy:'last_name' | orderBy: 'state_name'" current-page="legislatorCurrentPage" pagination-id="house-table">
+                                    <td><img style="width:30px" ng-src="{{ partyLogo(x.party) }}"></td>
+                                    <td>{{ x.first_name + ", " + x.last_name}}</td>
+                                    <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
+                                    <td>{{ districtNum(x.district) }}</td>
+                                    <td>{{ x.state_name }}</td>
+                                    <td><button type="button" class="btn btn-primary" ng-click="clickViewDetails(x)" >View Details</button></td>
+                                </tr>
+                            </table>
+                            <div class="text-center">
+                                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="house-table"></dir-pagination-controls>
+                            </div>
+                        </div>
+                        <div id="senate" class="tab-pane fade">
+                            <div class="panel panel-default" style="background-color:#a2a3a5">
+                                <div class="panel-body">
+                                    <b>Legislators By House</b>
+                                    <div class="pull-right">
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table table-hover">
+                                <tr><th>Party</th><th>Nmae</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr>
+                                <tr dir-paginate="x in legislatorsBySenate | itemsPerPage: 10| orderBy:'last_name' | orderBy: 'state_name'" current-page="legislatorCurrentPage" pagination-id="senate-table">
+                                    <td><img style="width:30px" ng-src="{{ partyLogo(x.party) }}"></td>
+                                    <td>{{ x.first_name + ", " + x.last_name}}</td>
+                                    <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
+                                    <td>{{ districtNum(x.district) }}</td>
+                                    <td>{{ x.state_name }}</td>
+                                    <td><button type="button" class="btn btn-primary" ng-click="clickViewDetails(x)" >View Details</button></td>
+                                </tr>
+                            </table>
+                            <div class="text-center">
+                                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="senate-table"></dir-pagination-controls>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <table class="table table-hover">
-                    <tr><th>Party</th><th>Nmae</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr>
-                    <tr dir-paginate="x in legislators | stateFilter: selected | itemsPerPage: 10 | orderBy:'last_name' | orderBy: 'state_name'" current-page="currentPage" pagination-id="state-table">
-                        <td><img style="width:30px" ng-src="{{ partyLogo(x.party) }}"></td>
-                        <td>{{ x.first_name + ", " + x.last_name}}</td>
-                        <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
-                        <td>{{ districtNum(x.district) }}</td>
-                        <td>{{ x.state_name }}</td>
-                        <td><button type="button" class="btn btn-primary">View Details</button></td>
-                    </tr>
-                </table>
-                <div class="text-center">
-                    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="state-table"></dir-pagination-controls>
                 </div>
             </div>
-            <div id="house" class="tab-pane fade">
-                <div class="panel panel-default" style="background-color:#a2a3a5">
-                    <div class="panel-body">
-                        <b>Legislators By House</b>
-                        <div class="pull-right">
-                            <input type="text" class="form-control">
-                        </div>
+            <div class="item">
+                <div class="row">
+                    <div class="pull-left">
+                        <button class="btn btn-default my-button pull-left" type="button" ng-click="goBack()">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        </button>Details</h3>
+                    </div>
+                    <div class="pull-right">
+                        <h3><i class="fa fa-star-o" aria-hidden="true"></i></h3>
                     </div>
                 </div>
-                <table class="table table-hover">
-                    <tr><th>Party</th><th>Nmae</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr>
-                    <tr dir-paginate="x in legislatorsByHouse | itemsPerPage: 10 | orderBy:'last_name' | orderBy: 'state_name'" current-page="currentPage" pagination-id="house-table">
-                        <td><img style="width:30px" ng-src="{{ partyLogo(x.party) }}"></td>
-                        <td>{{ x.first_name + ", " + x.last_name}}</td>
-                        <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
-                        <td>{{ districtNum(x.district) }}</td>
-                        <td>{{ x.state_name }}</td>
-                        <td><button type="button" class="btn btn-primary">View Details</button></td>
+                <table style="width:100%">
+                    <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Age</th>
                     </tr>
-                </table>
-                <div class="text-center">
-                    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="house-table"></dir-pagination-controls>
-                </div>
-            </div>
-            <div id="senate" class="tab-pane fade">
-                <div class="panel panel-default" style="background-color:#a2a3a5">
-                    <div class="panel-body">
-                        <b>Legislators By House</b>
-                        <div class="pull-right">
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <table class="table table-hover">
-                    <tr><th>Party</th><th>Nmae</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr>
-                    <tr dir-paginate="x in legislatorsBySenate | itemsPerPage: 10| orderBy:'last_name' | orderBy: 'state_name'" current-page="currentPage" pagination-id="senate-table">
-                        <td><img style="width:30px" ng-src="{{ partyLogo(x.party) }}"></td>
-                        <td>{{ x.first_name + ", " + x.last_name}}</td>
-                        <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
-                        <td>{{ districtNum(x.district) }}</td>
-                        <td>{{ x.state_name }}</td>
-                        <td><button type="button" class="btn btn-primary">View Details</button></td>
+                    <tr>
+                        <td>Jill</td>
+                        <td>Smith</td>
+                        <td>50</td>
                     </tr>
-                </table>
-                <div class="text-center">
-                    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="senate-table"></dir-pagination-controls>
-                </div>
+                    <tr>
+                        <td>Eve</td>
+                        <td>Jackson</td>
+                        <td>94</td>
+                    </tr>
+                </table> 
             </div>
         </div>
     </div>

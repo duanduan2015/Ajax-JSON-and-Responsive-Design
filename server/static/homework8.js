@@ -62,6 +62,11 @@ var stateNames = {
 $(document).ready(function($) {
 });
 
+$("#legislatorDetail").click(function() {
+    $scope
+    //$("#myCarousel").carousel(0);
+});
+
 var app = angular.module('myApp', ["angularUtils.directives.dirPagination"]);
 
 app.filter("stateFilter", function() {
@@ -76,6 +81,19 @@ app.filter("stateFilter", function() {
         return filtered;
     };
 });
+
+app.filter("activeFilter", function() {
+    return function(items, cond) {
+        var filtered = [];
+        angular.forEach(items, function(item) {
+            if (item.history.active == cond) {
+                filtered.push(item);
+            }
+        });
+        return filtered;
+    };
+});
+
 app.controller('customerCtrl', function($scope, $http) {
     $http.get("../main.php?query=legislators")
             .then(function (response) {
@@ -87,6 +105,20 @@ app.controller('customerCtrl', function($scope, $http) {
                     return obj.chamber == "senate"
                });
             });
+
+    $http.get("../main.php?query=bills")
+            .then(function (response) {
+                $scope.bills = response.data.results;
+            });
+
+    $scope.clickViewDetails = function(x) {
+        $("#myCarousel").carousel(1);
+    }
+
+    $scope.goBack = function() {
+        $("#myCarousel").carousel(0);
+    }
+
     $scope.stateOptions = function() {
         var opts = [];
         opts.push("All States");
@@ -95,7 +127,8 @@ app.controller('customerCtrl', function($scope, $http) {
         }
         return opts;
     }();
-    $scope.currentPage = 1;
+    $scope.legislatorCurrentPage = 1;
+    $scope.billCurrentPage = 1;
     $scope.partyLogo = function(s) {
         if (s == "R") {
             return "images/r.png";

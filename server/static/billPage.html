@@ -16,13 +16,14 @@
                     </div>
                 </div>
                 <table class="table table-hover">
-                    <tr><th>Party</th><th>Nmae</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr>
-                    <tr dir-paginate="x in legislators | itemsPerPage: 5" current-page="currentPage" pagination-id="bill-active-table">
-                        <td><img style="width:30px" ng-src="{{ partyLogo(x.party) }}"></td>
-                        <td>{{ x.first_name + ", " + x.last_name}}</td>
+                    <tr><th>Bill ID</th><th>Bill Type</th><th>Title</th><th>Chamber</th><th>Introducted On</th><th>Sponsor</th><th></th></tr>
+                    <tr dir-paginate="x in bills | activeFilter: true | itemsPerPage: 5" current-page="billCurrentPage" pagination-id="bill-active-table">
+                        <td>{{ x.bill_id }}</td>
+                        <td>{{ x.bill_type | uppercase }}</td>
+                        <td>{{ x.official_title }}</td>
                         <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
-                        <td>{{ districtNum(x.district) }}</td>
-                        <td>{{ x.state_name }}</td>
+                        <td>{{ x.introduced_on }}</td>
+                        <td>{{ x.sponsor.title + ". " + x.sponsor.last_name + ", " + x.sponsor.first_name }}</td>
                         <td><button type="button" class="btn btn-primary">View Details</button></td>
                     </tr>
                 </table>
@@ -40,13 +41,14 @@
                     </div>
                 </div>
                 <table class="table table-hover">
-                    <tr><th>Party</th><th>Nmae</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr>
-                    <tr dir-paginate="x in legislatorsByHouse | itemsPerPage: 5" current-page="currentPage" pagination-id="bill-new-table">
-                        <td><img style="width:30px" ng-src="{{ partyLogo(x.party) }}"></td>
-                        <td>{{ x.first_name + ", " + x.last_name}}</td>
-                        <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
-                        <td>{{ districtNum(x.district) }}</td>
-                        <td>{{ x.state_name }}</td>
+                    <tr><th>Bill ID</th><th>Bill Type</th><th>Title</th><th>Chamber</th><th>Introducted On</th><th>Sponsor</th><th></th></tr>
+                    <tr dir-paginate="b in bills | activeFilter: false | itemsPerPage: 5" current-page="billCurrentPage" pagination-id="bill-new-table">
+                        <td>{{ b.bill_id }}</td>
+                        <td>{{ b.bill_type | uppercase }}</td>
+                        <td>{{ b.official_title }}</td>
+                        <td><img style="width:30px" ng-src="{{chamberLogo(b.chamber) }}">{{" " + chamberName(b.chamber) }}</td>
+                        <td>{{ b.introduced_on }}</td>
+                        <td>{{ b.sponsor.title + ". " + b.sponsor.last_name + ", " + b.sponsor.first_name }}</td>
                         <td><button type="button" class="btn btn-primary">View Details</button></td>
                     </tr>
                 </table>
