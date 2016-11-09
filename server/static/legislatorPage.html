@@ -23,7 +23,7 @@
                                     </td>
                                 </tr>
                                 <tr><th>Party</th><th>Nmae</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr>
-                                <tr dir-paginate="x in legislators | stateFilter: selected | itemsPerPage: 10 | orderBy:'last_name' | orderBy: 'state_name'" current-page="currentPage" pagination-id="state-table">
+                                <tr dir-paginate="x in legislators | stateFilter: selected | itemsPerPage: 10 | orderBy:'last_name' | orderBy: 'state_name'" current-page="currentPageLegislatorState" pagination-id="state-table">
                                     <td><img style="width:30px" ng-src="{{ partyLogo(x.party) }}"></td>
                                     <td>{{ x.first_name + ", " + x.last_name}}</td>
                                     <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
@@ -47,7 +47,7 @@
                                     </td>
                                 </tr>
                                 <tr><th>Party</th><th>Nmae</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr>
-                                <tr dir-paginate="x in legislatorsByHouse | itemsPerPage: 10 | orderBy:'last_name' | orderBy: 'state_name'" current-page="currentPage" pagination-id="house-table">
+                                <tr dir-paginate="x in legislatorsByHouse | itemsPerPage: 10 | orderBy:'last_name' | orderBy: 'state_name'" current-page="currentPageLegislatorHouse" pagination-id="house-table">
                                     <td><img style="width:30px" ng-src="{{ partyLogo(x.party) }}"></td>
                                     <td>{{ x.first_name + ", " + x.last_name}}</td>
                                     <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
@@ -71,7 +71,7 @@
                                     </td>
                                 </tr>
                                 <tr><th>Party</th><th>Nmae</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr>
-                                <tr dir-paginate="x in legislatorsBySenate | itemsPerPage: 10 | orderBy:'last_name' | orderBy: 'state_name'" current-page="currentPage" pagination-id="senate-table">
+                                <tr dir-paginate="x in legislatorsBySenate | itemsPerPage: 10 | orderBy:'last_name' | orderBy: 'state_name'" current-page="currentPageLegislatorSenate" pagination-id="senate-table">
                                     <td><img style="width:30px" ng-src="{{ partyLogo(x.party) }}"></td>
                                     <td>{{ x.first_name + ", " + x.last_name}}</td>
                                     <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>

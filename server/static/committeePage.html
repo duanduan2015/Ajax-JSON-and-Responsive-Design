@@ -1,0 +1,94 @@
+<h2 class="page-header" style="margin-top:5px">Committees</h2>
+<div style="width=100%;background-color:white">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#comByHouse">House</a></li>
+        <li><a data-toggle="tab" href="#comBySenate">Senate</a></li>
+        <li><a data-toggle="tab" href="#comByJoint">Joint</a></li>
+    </ul>
+    <div style="width:96%;margin-left:2%;margin-top:2%;" >
+        <div class="tab-content">
+            <div id="comByHouse" class="tab-pane fade in active">
+                <table class="table table-hover">
+                    <tr>
+                        <td colspan="7" class="well well-sm">
+                            <b>House</b>
+                            <div class="pull-right">
+                                <input type="text" class="form-control">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr><th></th><th>Chamber</th><th>Committee ID</th><th>Name</th><th>Parent Committee</th><th>Contact</th><th>Office</th></tr>
+                    <tr dir-paginate="x in committeesByHouse | itemsPerPage: 10" current-page="currentPageCommitteeHouse" pagination-id="committee-house-table">
+                        <td>
+                            <button class="btn btn-default my-button pull-left" type="button">
+                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                        <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
+                        <td>{{ committee_id(x) }}</td>
+                        <td>{{ committee_name(x) }}</td>
+                        <td>{{ parent_committee_id(x) }}</td>
+                        <td>{{ committee_phone(x) }}</td>
+                        <td>{{ committee_office(x) }}</td>
+                    </tr>
+                </table>
+                <div class="text-center">
+                    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="committee-house-table"></dir-pagination-controls>
+                </div>
+            </div>
+            <div id="comBySenate" class="tab-pane fade">
+                <table class="table table-hover">
+                    <tr>
+                        <td colspan="5" class="well well-sm">
+                            <b>Senate</b>
+                            <div class="pull-right">
+                                <input type="text" class="form-control">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr><th></th><th>Chamber</th><th>Committee ID</th><th>Name</th><th>Parent Committee</th></tr>
+                    <tr dir-paginate="x in committeesBySenate | itemsPerPage: 10" current-page="currentPageCommitteeSenate" pagination-id="committee-senate-table">
+                        <td>
+                            <button class="btn btn-default my-button pull-left" type="button">
+                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                        <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
+                        <td>{{ committee_id(x) }}</td>
+                        <td>{{ committee_name(x) }}</td>
+                        <td>{{ parent_committee_id(x) }}</td>
+                    </tr>
+                </table>
+                <div class="text-center">
+                    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="committee-senate-table"></dir-pagination-controls>
+                </div>
+            </div>
+            <div id="comByJoint" class="tab-pane fade">
+                <table class="table table-hover">
+                    <tr>
+                        <td colspan="4" class="well well-sm">
+                            <b>Joint</b>
+                            <div class="pull-right">
+                                <input type="text" class="form-control">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr><th></th><th>Chamber</th><th>Committee ID</th><th>Name</th></tr>
+                    <tr dir-paginate="x in committeesByJoint | itemsPerPage: 10" current-page="currentPageCommitteeJoint" pagination-id="committee-Joint-table">
+                        <td>
+                            <button class="btn btn-default my-button pull-left" type="button">
+                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                        <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">Joint</td>
+                        <td>{{ committee_id(x) }}</td>
+                        <td>{{ committee_name(x) }}</td>
+                    </tr>
+                </table>
+                <div class="text-center">
+                    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="committee-joint-table"></dir-pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>                
+</div>

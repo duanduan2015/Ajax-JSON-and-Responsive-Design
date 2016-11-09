@@ -97,7 +97,65 @@ app.controller('customerCtrl', function($scope, $http) {
                 $scope.newbills = response.data.results;
             });
 
-    $scope.currentPage = 1;
+    $http.get("../main.php?query=committees?per_page=all")
+            .then(function (response) {
+                $scope.committeesByHouse = [];
+                $scope.committeesBySenate = [];
+                $scope.committeesByJoint = [];
+                angular.forEach(response.data.results, function(item) {
+                    if (item.chamber == "house") {
+                        $scope.committeesByHouse.push(item);
+                    } else if (item.chamber == "senate") {
+                        $scope.committeesBySenate.push(item);
+                    } else {
+                        $scope.committeesByJoint.push(item);
+                    }
+                });
+            });
+
+    $scope.committee_id = function(x) {
+        if (x.committee_id == null) {
+            return "N.A.";
+        }
+        return x.committee_id;
+    }
+
+    $scope.committee_name = function(x) {
+        if (x.name == null) {
+            return "N.A.";
+        }
+        return x.name;
+    }
+
+    $scope.parent_committee_id = function(x) {
+        if (x.parent_committee_id == null) {
+            return "N.A.";
+        }
+        return x.parent_committee_id;
+    }
+
+    $scope.committee_phone = function(x) {
+        if (x.committee_phone == null) {
+            return "N.A.";
+        }
+        return x.committee_phone;
+    }
+
+    $scope.committee_office = function(x) {
+        if (x.committee_office == null) {
+            return "N.A.";
+        }
+        return x.committee_office;
+    }
+
+    $scope.currentPageLegislatorState = 1;
+    $scope.currentPageLegislatorHouse = 1;
+    $scope.currentPageLegislatorSenate = 1;
+    $scope.currentPageActiveBill = 1;
+    $scope.currentPageNewBill = 1;
+    $scope.currentPageCommitteeHouse = 1;
+    $scope.currentPageCommitteeSenate = 1;
+    $scope.currentPageCommitteeJoint = 1;
     $scope.getTermPercent = function(x) {
         var start = moment(x.term_start);
         var end = moment(x.term_end);
