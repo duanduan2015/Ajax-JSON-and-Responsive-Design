@@ -1,0 +1,39 @@
+<h2 class="page-header" style="margin-top:5px">Favorites</h2>
+<div style="width=100%;background-color:white">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#favoriteLegislators">Legislators</a></li>
+        <li><a data-toggle="tab" href="#favoriteBills">Bills</a></li>
+        <li><a data-toggle="tab" href="#favoriteCommittees">Committees</a></li>
+    </ul>
+    <div style="width:96%;margin-left:2%;margin-top:2%;" >
+        <div class="tab-content">
+            <div id="favoriteLegislators" class="tab-pane fade in active">
+                <table class="table table-hover">
+                    <tr>
+                        <td colspan="8" class="well well-sm">
+                            <b>Favorite Legislators</b>
+                        </td>
+                    </tr>
+                    <tr><th></th><th>Image</th><th>Party</th><th>Name</th><th>Chamber</th><th>State</th><th>Email</th><th></th></tr>
+                    <tr dir-paginate="x in legislatorsBySenate | itemsPerPage: 100" current-page="currentPageFL" pagination-id="fl">
+                        <td>
+                            <button class="btn btn-default pull-left" type="button">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                        <td><img class="img-responsive" style="margin:0 auto;width:15px" ng-src="{{ getImage(x) }}"></td>
+                        <td><img style="width:15px" ng-src="{{ partyLogo(x.party)}}"></td>
+                        <td>{{ x.first_name + ", " + x.last_name}}</td>
+                        <td><img style="width:15px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
+                        <td>{{ x.state_name }}</td>
+                        <td>{{ getEmail(x) }}</td>
+                        <td><button type="button" class="btn btn-primary" ng-click="clickViewBillsDetails(x)">View Details</button></td>
+                    </tr>
+                    <div class="text-center">
+                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="fl"></dir-pagination-controls>
+                    </div>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

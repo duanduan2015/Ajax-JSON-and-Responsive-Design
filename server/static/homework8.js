@@ -87,6 +87,10 @@ app.controller('customerCtrl', function($scope, $http) {
                });
             });
 
+    $scope.favoriteLegislators = [];
+    $scope.favoriteLegislators = $scope.legislatorsBySenate;
+    $scope.favoriteBills = [];
+    $scope.favoriteCommittees = [];
     $http.get("../main.php?query=bills?per_page=50&history.active=true")
             .then(function (response) {
                 $scope.activebills = response.data.results;
@@ -112,6 +116,16 @@ app.controller('customerCtrl', function($scope, $http) {
                     }
                 });
             });
+    $scope.getEmail = function(x) {
+        if (x.oc_email == null) {
+            return "N.A.";
+        }
+        return x.oc_email;
+    }
+
+    $scope.getImage = function(x) {
+        return 'https://theunitedstates.io/images/congress/225x275/' + x.bioguide_id + '.jpg'; 
+    }
 
     $scope.committee_id = function(x) {
         if (x.committee_id == null) {
@@ -148,6 +162,7 @@ app.controller('customerCtrl', function($scope, $http) {
         return x.committee_office;
     }
 
+    $scope.currentPageFL = 1;
     $scope.currentPageLegislatorState = 1;
     $scope.currentPageLegislatorHouse = 1;
     $scope.currentPageLegislatorSenate = 1;
