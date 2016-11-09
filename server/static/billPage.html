@@ -1,62 +1,101 @@
-<h2 class="page-header">Bills</h2>
-<div style="background-color:white">
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#activeBills">Active Bills</a></li>
-        <li><a data-toggle="tab" href="#newBills">New Bills</a></li>
-    </ul>
-    <div style="width:96%;margin-left:2%;margin-top:2%;" >
-        <div class="tab-content">
-            <div id="activeBills" class="tab-pane fade in active">
-                <div class="panel panel-default" style="background-color:#a2a3a5">
-                    <div class="panel-body">
-                        <b>Active Bills</b>
-                        <div class="pull-right">
-                            <input type="text" class="form-control">
+<h2 class="page-header" style="margin-top:5px">Bills</h2>
+<div style="width=100%;background-color:white">
+    <div id="billCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#activeBills">Active Bills</a></li>
+                    <li><a data-toggle="tab" href="#newBills">New Bills</a></li>
+                </ul>
+                <div style="width:96%;margin-left:2%;margin-top:2%;" >
+                    <div class="tab-content">
+                        <div id="activeBills" class="tab-pane fade in active">
+                            <table class="table table-hover">
+                                <tr>
+                                    <td colspan="7" class="well well-sm">
+                                        <b>Active Bills</b>
+                                        <div class="pull-right">
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr><th>Bill ID</th><th>Bill Type</th><th>Title</th><th>Chamber</th><th>Introducted On</th><th>Sponsor</th><th></th></tr>
+                                <tr dir-paginate="x in activebills | itemsPerPage: 5" current-page="currentPage" pagination-id="bill-active-table">
+                                    <td>{{ x.bill_id }}</td>
+                                    <td>{{ x.bill_type | uppercase }}</td>
+                                    <td>{{ x.official_title }}</td>
+                                    <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
+                                    <td>{{ x.introduced_on }}</td>
+                                    <td>{{ x.sponsor.title + ". " + x.sponsor.last_name + ", " + x.sponsor.first_name }}</td>
+                                    <td><button type="button" class="btn btn-primary" ng-click="clickViewBillsDetails(x)">View Details</button></td>
+                                </tr>
+                            </table>
+                            <div class="text-center">
+                                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="bill-active-table"></dir-pagination-controls>
+                            </div>
+                        </div>
+                        <div id="newBills" class="tab-pane fade">
+                            <table class="table table-hover">
+                                <tr>
+                                    <td colspan="7" class="well well-sm">
+                                        <b>New Bills</b>
+                                        <div class="pull-right">
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr><th>Bill ID</th><th>Bill Type</th><th>Title</th><th>Chamber</th><th>Introducted On</th><th>Sponsor</th><th></th></tr>
+                                <tr dir-paginate="b in newbills | itemsPerPage: 5" current-page="currentPage" pagination-id="bill-new-table">
+                                    <td>{{ b.bill_id }}</td>
+                                    <td>{{ b.bill_type | uppercase }}</td>
+                                    <td>{{ b.official_title }}</td>
+                                    <td><img style="width:30px" ng-src="{{chamberLogo(b.chamber) }}">{{" " + chamberName(b.chamber) }}</td>
+                                    <td>{{ b.introduced_on }}</td>
+                                    <td>{{ b.sponsor.title + ". " + b.sponsor.last_name + ", " + b.sponsor.first_name }}</td>
+                                    <td><button type="button" class="btn btn-primary" ng-click="clickViewBillsDetails(x)">View Details</button></td>
+                                </tr>
+                            </table>
+                            <div class="text-center">
+                                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="bill-new-table"></dir-pagination-controls>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <table class="table table-hover">
-                    <tr><th>Bill ID</th><th>Bill Type</th><th>Title</th><th>Chamber</th><th>Introducted On</th><th>Sponsor</th><th></th></tr>
-                    <tr dir-paginate="x in bills | activeFilter: true | itemsPerPage: 5" current-page="billCurrentPage" pagination-id="bill-active-table">
-                        <td>{{ x.bill_id }}</td>
-                        <td>{{ x.bill_type | uppercase }}</td>
-                        <td>{{ x.official_title }}</td>
-                        <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
-                        <td>{{ x.introduced_on }}</td>
-                        <td>{{ x.sponsor.title + ". " + x.sponsor.last_name + ", " + x.sponsor.first_name }}</td>
-                        <td><button type="button" class="btn btn-primary">View Details</button></td>
-                    </tr>
-                </table>
-                <div class="text-center">
-                    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="bill-active-table"></dir-pagination-controls>
                 </div>
             </div>
-            <div id="newBills" class="tab-pane fade">
-                <div class="panel panel-default" style="background-color:#a2a3a5">
-                    <div class="panel-body">
-                        <b>New Bills</b>
-                        <div class="pull-right">
-                            <input type="text" class="form-control">
-                        </div>
+            <div class="item col-sm-12 col-md-12">
+                <div class="row" style="margin-bottom:0px;">
+                    <div class="pull-left" style="margin-bottom:5px;margin-top:5px;margin-left:5px">
+                        <button class="btn btn-default my-button pull-left" type="button" ng-click="goBackBill()">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        </button><span style="font-size:25px">Details</span>
+                    </div>
+                    <div class="pull-right" style="margin-bottom:5px;margin-top:5px;margin-right:5px">
+                        <button class="btn btn-default my-button pull-left" type="button">
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                        </button>
                     </div>
                 </div>
-                <table class="table table-hover">
-                    <tr><th>Bill ID</th><th>Bill Type</th><th>Title</th><th>Chamber</th><th>Introducted On</th><th>Sponsor</th><th></th></tr>
-                    <tr dir-paginate="b in bills | activeFilter: false | itemsPerPage: 5" current-page="billCurrentPage" pagination-id="bill-new-table">
-                        <td>{{ b.bill_id }}</td>
-                        <td>{{ b.bill_type | uppercase }}</td>
-                        <td>{{ b.official_title }}</td>
-                        <td><img style="width:30px" ng-src="{{chamberLogo(b.chamber) }}">{{" " + chamberName(b.chamber) }}</td>
-                        <td>{{ b.introduced_on }}</td>
-                        <td>{{ b.sponsor.title + ". " + b.sponsor.last_name + ", " + b.sponsor.first_name }}</td>
-                        <td><button type="button" class="btn btn-primary">View Details</button></td>
-                    </tr>
-                </table>
-                <div class="text-center">
-                    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="bill-new-table"></dir-pagination-controls>
+                <hr style="margin-top:5px;margin-bottom:0px;">
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-sm-6 col-md-6">
+                        <table class="table" style="width:100%">
+                            <tr><td>Bill ID</td><td>{{ bill_id }}</td></tr>
+                            <tr><td>Title</td><td>{{ bill_title }}</td></tr>
+                            <tr><td>Sponsor</td><td>{{ bill_sponsor }}</td></tr>
+                            <tr><td>Chamber</td><td>{{ bill_chamber }}</td></tr>
+                            <tr><td>Status</td><td>{{ bill_status }}</td></tr>
+                            <tr><td>Introduced On</td><td>{{ bill_introduced_on }}</td></tr>
+                            <tr><td>Congress URL</td><td><a ng-href="{{ bill_congress_url }}">URL</a></td></tr>
+                            <tr><td>Version Status</td><td>{{ bill_version_status }}</td></tr>
+                            <tr><td>Bill URL</td><td><a target="_blank" ng-href="{{ bill_url }}">Link</a></td></tr>
+                        </table>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <object style="height:600px;width:100%" data="{{ bill_url }}"></object>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-

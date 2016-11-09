@@ -59,14 +59,6 @@ var stateNames = {
     "WI": "Wisconsin",
     "WY": "Wyoming"
 };
-$(document).ready(function($) {
-});
-
-$("#legislatorDetail").click(function() {
-    $scope
-    //$("#myCarousel").carousel(0);
-});
-
 var app = angular.module('myApp', ["angularUtils.directives.dirPagination"]);
 
 app.filter("stateFilter", function() {
@@ -82,17 +74,6 @@ app.filter("stateFilter", function() {
     };
 });
 
-app.filter("activeFilter", function() {
-    return function(items, cond) {
-        var filtered = [];
-        angular.forEach(items, function(item) {
-            if (item.history.active == cond) {
-                filtered.push(item);
-            }
-        });
-        return filtered;
-    };
-});
 
 app.controller('customerCtrl', function($scope, $http) {
     $http.get("../main.php?query=legislators")
@@ -106,16 +87,45 @@ app.controller('customerCtrl', function($scope, $http) {
                });
             });
 
-    $http.get("../main.php?query=bills")
+    $http.get("../main.php?query=bills?per_page=50&history.active=true")
             .then(function (response) {
-                $scope.bills = response.data.results;
+                $scope.activebills = response.data.results;
             });
+
+    $http.get("../main.php?query=bills?per_page=50&history.active=false")
+            .then(function (response) {
+                $scope.newbills = response.data.results;
+            });
+
+    $scope.currentPage = 1;
     $scope.getTermPercent = function(x) {
         var start = moment(x.term_start);
         var end = moment(x.term_end);
         var now = moment();
         return Math.round((now - start) * 100 / (end - start));
     }
+
+    $scope.clickViewBillsDetails = function(x) {
+        $scope.bill_id = x.bill_id;
+        $scope.bill_title = x.official_title;
+        $scope.bill_sponsor = x.sponsor.title + ". " + x.sponsor.last_name + ", " + x.sponsor.first_name;
+        if (x.chamber == "house") {
+            $scope.bill_chamber = "House";
+        } else {
+            $scope.bill_chamber = "Senate";
+        }
+        if (x.history.active == false) {
+            $scope.bill_status = "New";
+        } else {
+            $scope.bill_status = "Active";
+        }
+        $scope.bill_introduced_on = x.introduced_on;
+        $scope.bill_congress_url = x.urls.congress;
+        $scope.bill_version_status = x.last_version.version_name;
+        $scope.bill_url = x.last_version.urls.pdf;
+        $("#billCarousel").carousel(1);
+    }
+
     $scope.clickViewDetails = function(x) {
         $scope.img_src = 'https://theunitedstates.io/images/congress/225x275/' + x.bioguide_id + '.jpg'; 
         $scope.name = x.title + ". " + x.last_name + ", " + x.first_name;
@@ -178,11 +188,15 @@ app.controller('customerCtrl', function($scope, $http) {
             .then(function (response) {
                 $scope.legislatorBills = response.data.results;
             });
-        $("#myCarousel").carousel(1);
+        $("#legislatorCarousel").carousel(1);
     }
 
-    $scope.goBack = function() {
-        $("#myCarousel").carousel(0);
+    $scope.goBackLegislator = function() {
+        $("#legislatorCarousel").carousel(0);
+    }
+
+    $scope.goBackBill = function() {
+        $("#billCarousel").carousel(0);
     }
 
     $scope.stateOptions = function() {
@@ -193,8 +207,6 @@ app.controller('customerCtrl', function($scope, $http) {
         }
         return opts;
     }();
-    $scope.legislatorCurrentPage = 1;
-    $scope.billCurrentPage = 1;
     $scope.partyLogo = function(s) {
         if (s == "R") {
             return "images/r.png";
