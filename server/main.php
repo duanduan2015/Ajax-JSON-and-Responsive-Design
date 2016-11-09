@@ -14,12 +14,20 @@ if (isset($_SERVER["REQUEST_METHOD"])) {
         $filePath = $url . $_GET["query"] . "?&per_page=all&" . $apikey;
         $file = file_get_contents($filePath, false, $context);
         echo $file;
-    }
-    if ($_GET["query"] == "bills") {
+    } else if ($_GET["query"] == "bills") {
         $filePath = $url . $_GET["query"] . "?" . $apikey;
         $file = file_get_contents($filePath, false, $context);
         echo $file;
+    } else if ($_GET["query"] == "committees") {
+        $filePath = $url . $_GET["query"] . "?" . $apikey;
+        $file = file_get_contents($filePath, false, $context);
+        echo $file;
+    } else {
+        $filePath = $url . $_GET["query"] . "&" . $apikey;
+        $file = file_get_contents($filePath, false, $context);
+        echo $file;
     }
+
     $_SRVER["REQUEST_METHOD"] = null; 
 }
 ?>

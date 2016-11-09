@@ -43,15 +43,15 @@
                             </div>
                         </div>
                         <div id="house" class="tab-pane fade">
-                            <div class="panel panel-default" style="background-color:#a2a3a5">
-                                <div class="panel-body">
-                                    <b>Legislators By House</b>
-                                    <div class="pull-right">
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
                             <table class="table table-hover">
+                                <tr>
+                                    <td colspan="6" class="well well-sm">
+                                        <b>Legislators By House</b>
+                                        <div class="pull-right">
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </td>
+                                </tr>
                                 <tr><th>Party</th><th>Nmae</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr>
                                 <tr dir-paginate="x in legislatorsByHouse | itemsPerPage: 10 | orderBy:'last_name' | orderBy: 'state_name'" current-page="legislatorCurrentPage" pagination-id="house-table">
                                     <td><img style="width:30px" ng-src="{{ partyLogo(x.party) }}"></td>
@@ -67,15 +67,15 @@
                             </div>
                         </div>
                         <div id="senate" class="tab-pane fade">
-                            <div class="panel panel-default" style="background-color:#a2a3a5">
-                                <div class="panel-body">
-                                    <b>Legislators By House</b>
-                                    <div class="pull-right">
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
                             <table class="table table-hover">
+                                <tr>
+                                    <td colspan="6" class="well well-sm">
+                                        <b>Legislators By House</b>
+                                        <div class="pull-right">
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </td>
+                                </tr>
                                 <tr><th>Party</th><th>Nmae</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr>
                                 <tr dir-paginate="x in legislatorsBySenate | itemsPerPage: 10| orderBy:'last_name' | orderBy: 'state_name'" current-page="legislatorCurrentPage" pagination-id="senate-table">
                                     <td><img style="width:30px" ng-src="{{ partyLogo(x.party) }}"></td>
@@ -108,18 +108,18 @@
                 </div>
                 <hr style="margin-top:5px;margin-bottom:0px;">
                 <div class="row" style="margin-top:10px;">
-                    <div class="col-sm-6 col-md-6">
+                    <div class="col-sm-5 col-md-5">
                         <table class="table" style="width:100%">
                             <tr><td colspan="2" rowspan="5"><img class="img-responsive" style="margin:0 auto;width:150px" ng-src="{{ img_src }}"></td>
                                 <td colspan="2">{{ name }}</td>
                             </tr>
-                            <tr><td colspan="2"><a ng-href="{{ email }}">{{ email }}</a></td></tr>
+                            <tr><td colspan="2"><a target="_blank" ng-href="{{ email }}">{{ email }}</a></td></tr>
                             <tr><td colspan="2">{{ "Chamber: " + chamber }}</td></tr>
-                            <tr><td colspan="2">Contact:<a ng-href={{ contact }}>{{" " +  contact }}</a></td></tr>
+                            <tr><td colspan="2">Contact:<a target="_blank" ng-href={{ contact }}>{{" " +  contact }}</a></td></tr>
                             <tr><td colspan="2"><img style="width:20px" ng-src="{{ partyLogoImg }}">{{ " " + partyName }}</td></tr>
-                            <tr><td>Start Term</td><td colspan="3">{{ startTerm }}</td></tr>
-                            <tr><td>End Term</td><td colspan="3">{{ endTerm }}</td></tr>
-                            <tr><td>Term</td>
+                            <tr><td><b>Start Term</td><td colspan="3">{{ startTerm }}</td></tr>
+                            <tr><td><b>End Term</td><td colspan="3">{{ endTerm }}</td></tr>
+                            <tr><td><b>Term</td>
                                 <td colspan="3">
                                     <div class="progress">
                                         <div class="progress-bar progress-bar-success" role="progressbar"  aria-valuemin="0" aria-valuemax="100" style="width:{{ percent }}%">
@@ -128,41 +128,40 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr><td>Office</td><td colspan="2">{{ office }}</td></tr>
-                            <tr><td>State</td><td colspan="2">{{ state }}</td></tr>
-                            <tr><td>Fax</td><td colspan="2">{{ fax }}</td></tr>
-                            <tr><td>Birthday</td><td colspan="2">{{ birthday }}</td></tr>
-                            <tr><td>Social Links</td><td colspan="2">
+                            <tr><td><b>Office</td><td colspan="2">{{ office }}</td></tr>
+                            <tr><td><b>State</td><td colspan="2">{{ state }}</td></tr>
+                            <tr><td><b>Fax</td><td colspan="2">{{ fax }}</td></tr>
+                            <tr><td><b>Birthday</td><td colspan="2">{{ birthday }}</td></tr>
+                            <tr><td><b>Social Links</td><td colspan="2">
                                     <div class="row">
-                                    <a class="col-sm-2 col=md-2" ng-href="{{ twitterAddress }}"><img class="img-responsive" style="width:25px;" ng-src="{{ twitterImg }}"></a>
-                                    <a class="col-sm-2 col=md-2" ng-href="{{ facebookAddress }}"><img class="img-responsive" style="width:25px;" ng-src="{{ facebookImg }}"></a>
-                                    <a class="col-sm-2 col=md-2" ng-href="{{ website }}"><img class="img-responsive" style="width:25px;" ng-src="{{ websiteImg }}"></a>
+                                    <a class="col-sm-2 col=md-2" target="_blank" ng-href="{{ twitterAddress }}"><img class="img-responsive" style="width:30px;" ng-src="{{ twitterImg }}"></a>
+                                    <a class="col-sm-2 col=md-2" target="_blank" ng-href="{{ facebookAddress }}"><img class="img-responsive" style="width:30px;" ng-src="{{ facebookImg }}"></a>
+                                    <a class="col-sm-2 col=md-2" target="_blank" ng-href="{{ website }}"><img class="img-responsive" style="width:30px;" ng-src="{{ websiteImg }}"></a>
                                     </div>
                                 </td>
                             </tr>
                         </table>
                     </div>
-                    <div class="col-sm-6 col-md-6">
-                        <table style="width:100%">
-                            <tr>
-                                <th>Firstname</th>
-                                <th>Lastname</th> 
-                                <th>Age</th>
+                    <div class="col-sm-7 col-md-7" >
+                        <h4 style="margin-top:0px;margin-bottom:0px;">Committees</h4>
+                        <table class="table" style="margin-top:5px;margin-bottom:0px;">
+                            <tr><th>Chamber</th><th>Committee ID</th><th>Name</th></tr>
+                            <tr ng-repeat="x in legislatorCommittees" ng-if="$index < 5">
+                                <td>{{ chamberName(x.chamber) }}</td>
+                                <td>{{ x.committee_id }}</td>
+                                <td>{{ x.name }}</td>
                             </tr>
-                            <tr>
-                                <td>Jill</td>
-                                <td>Smith</td>
-                                <td>50</td>
-                            </tr>
-                            <tr>
-                                <td>Eve</td>
-                                <td>Jackson</td>
-                                <td>94</td>
-                            </tr>
-                            <tr>
-                                <td>John</td>
-                                <td>Doe</td>
-                                <td>80</td>
+                        </table>
+                        <h4>Bills</h4>
+                        <table class="table" style="margin-top:5px;margin-bottom:0px;">
+                            <tr><th>Bill ID</th><th>Title</th><th>Chamber</th><th>Bill Type</th><th>Congress</th><th>Link</th></tr>
+                            <tr ng-repeat="x in legislatorBills" ng-if="$index < 5">
+                                <td>{{ x.bill_id | uppercase }}</td>
+                                <td>{{ x.official_title }}</td>
+                                <td>{{ chamberName(x.chamber) }}</td>
+                                <td>{{ x.bill_type }}</td>
+                                <td>{{ x.congress }}</td>
+                                <td><a target="_blank" ng-href="{{ x.last_version.urls.pdf }}">Link</a></td>
                             </tr>
                         </table>
                     </div>

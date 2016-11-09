@@ -170,6 +170,14 @@ app.controller('customerCtrl', function($scope, $http) {
             $scope.website = x.website;
             $scope.websiteImg = 'images/w.png';
         }
+        $http.get("../main.php?query=committees?member_ids=" + x.bioguide_id + "&per_page=5")
+            .then(function (response) {
+                $scope.legislatorCommittees = response.data.results;
+            });
+        $http.get("../main.php?query=bills?sponsor_id=" + x.bioguide_id + "&per_page=5")
+            .then(function (response) {
+                $scope.legislatorBills = response.data.results;
+            });
         $("#myCarousel").carousel(1);
     }
 
