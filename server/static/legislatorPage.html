@@ -1,5 +1,5 @@
 <h2 class="page-header" style="margin-top:5px">Legislators</h2>
-<div style="background-color:white">
+<div style="width=100%;background-color:white">
     <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
         <!-- Indicators -->
         <ol class="carousel-indicators">
@@ -93,34 +93,81 @@
                     </div>
                 </div>
             </div>
-            <div class="item">
-                <div class="row">
-                    <div class="pull-left">
+            <div class="item col-sm-12 col-md-12">
+                <div class="row" style="margin-bottom:0px;">
+                    <div class="pull-left" style="margin-bottom:5px;margin-top:5px;margin-left:5px">
                         <button class="btn btn-default my-button pull-left" type="button" ng-click="goBack()">
                             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                        </button>Details</h3>
+                        </button><span style="font-size:25px">Details</span>
                     </div>
-                    <div class="pull-right">
-                        <h3><i class="fa fa-star-o" aria-hidden="true"></i></h3>
+                    <div class="pull-right" style="margin-bottom:5px;margin-top:5px;margin-right:5px">
+                        <button class="btn btn-default my-button pull-left" type="button" ng-click="goBack()">
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        </button>
                     </div>
                 </div>
-                <table style="width:100%">
-                    <tr>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-                        <th>Age</th>
-                    </tr>
-                    <tr>
-                        <td>Jill</td>
-                        <td>Smith</td>
-                        <td>50</td>
-                    </tr>
-                    <tr>
-                        <td>Eve</td>
-                        <td>Jackson</td>
-                        <td>94</td>
-                    </tr>
-                </table> 
+                <hr style="margin-top:5px;margin-bottom:0px;">
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-sm-6 col-md-6">
+                        <table class="table" style="width:100%">
+                            <tr><td colspan="2" rowspan="5"><img class="img-responsive" style="margin:0 auto;width:150px" ng-src="{{ img_src }}"></td>
+                                <td colspan="2">{{ name }}</td>
+                            </tr>
+                            <tr><td colspan="2"><a ng-href="{{ email }}">{{ email }}</a></td></tr>
+                            <tr><td colspan="2">{{ "Chamber: " + chamber }}</td></tr>
+                            <tr><td colspan="2">Contact:<a ng-href={{ contact }}>{{" " +  contact }}</a></td></tr>
+                            <tr><td colspan="2"><img style="width:20px" ng-src="{{ partyLogoImg }}">{{ " " + partyName }}</td></tr>
+                            <tr><td>Start Term</td><td colspan="3">{{ startTerm }}</td></tr>
+                            <tr><td>End Term</td><td colspan="3">{{ endTerm }}</td></tr>
+                            <tr><td>Term</td>
+                                <td colspan="3">
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-success" role="progressbar"  aria-valuemin="0" aria-valuemax="100" style="width:{{ percent }}%">
+                                            {{ percent + "%"}} 
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr><td>Office</td><td colspan="2">{{ office }}</td></tr>
+                            <tr><td>State</td><td colspan="2">{{ state }}</td></tr>
+                            <tr><td>Fax</td><td colspan="2">{{ fax }}</td></tr>
+                            <tr><td>Birthday</td><td colspan="2">{{ birthday }}</td></tr>
+                            <tr><td>Social Links</td><td colspan="2">
+                                    <div class="row">
+                                    <a class="col-sm-2 col=md-2" ng-href="{{ twitterAddress }}"><img class="img-responsive" style="width:25px;" ng-src="{{ twitterImg }}"></a>
+                                    <a class="col-sm-2 col=md-2" ng-href="{{ facebookAddress }}"><img class="img-responsive" style="width:25px;" ng-src="{{ facebookImg }}"></a>
+                                    <a class="col-sm-2 col=md-2" ng-href="{{ website }}"><img class="img-responsive" style="width:25px;" ng-src="{{ websiteImg }}"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <table style="width:100%">
+                            <tr>
+                                <th>Firstname</th>
+                                <th>Lastname</th> 
+                                <th>Age</th>
+                            </tr>
+                            <tr>
+                                <td>Jill</td>
+                                <td>Smith</td>
+                                <td>50</td>
+                            </tr>
+                            <tr>
+                                <td>Eve</td>
+                                <td>Jackson</td>
+                                <td>94</td>
+                            </tr>
+                            <tr>
+                                <td>John</td>
+                                <td>Doe</td>
+                                <td>80</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
             </div>
         </div>
     </div>

@@ -110,8 +110,66 @@ app.controller('customerCtrl', function($scope, $http) {
             .then(function (response) {
                 $scope.bills = response.data.results;
             });
-
+    $scope.getTermPercent = function(x) {
+        var start = moment(x.term_start);
+        var end = moment(x.term_end);
+        var now = moment();
+        return Math.round((now - start) * 100 / (end - start));
+    }
     $scope.clickViewDetails = function(x) {
+        $scope.img_src = 'https://theunitedstates.io/images/congress/225x275/' + x.bioguide_id + '.jpg'; 
+        $scope.name = x.title + ". " + x.last_name + ", " + x.first_name;
+        if (x.oc_email == null) {
+            $scope.email = "N.A";
+        } else {
+            $scope.email = x.oc_email;
+        }
+        if (x.chamber == "house") {
+            $scope.chamber = "House";
+        } else {
+            $scope.chamber = "Senate";
+        }
+        $scope.contact = x.phone;
+        $scope.partyLogoImg = $scope.partyLogo(x.party);
+        if (x.party == "R") $scope.partyName = "Republican";
+        if (x.party == "D") $scope.partyName = "Democrat";
+        if (x.party == "I") $scope.partyName = "Independent";
+        $scope.startTerm = x.term_start;
+        $scope.endTerm = x.term_end;
+        $scope.percent = $scope.getTermPercent(x);
+        if (x.office == null) {
+            $scope.office = x.office;
+        } else {
+            $scope.office = x.office;
+        }
+        $scope.state = x.state_name;
+        if (x.fax == null) {
+            $scope.fax = "N.A";
+        } else {
+            $scope.fax = x.fax;
+        }
+        $scope.birthday = x.birthday;
+        if (x.twitter_id == null) {
+            $scope.twitterAddress = null;
+            $scope.twitterImg = null;
+        } else {
+            $scope.twitterAddress = 'https://twitter.com/' + x.twitter_id;
+            $scope.twitterImg = 'images/t.png';
+        }
+        if (x.facebook_id == null) {
+            $scope.facebookAddress = null;
+            $scope.facebookImg = null;
+        } else {
+            $scope.facebookAddress = 'https://www.facebook.com/' + x.facebook_id;
+            $scope.facebookImg = 'images/f.png';
+        }
+        if (x.website == null) {
+            $scope.website = null;
+            $scope.websiteImg = null;
+        } else {
+            $scope.website = x.website;
+            $scope.websiteImg = 'images/w.png';
+        }
         $("#myCarousel").carousel(1);
     }
 
