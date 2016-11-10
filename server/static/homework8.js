@@ -110,6 +110,48 @@ app.filter("favoriteLegislator", function() {
     };
 });
 
+app.filter("nameFilter", function() {
+    return function(items, cond) {
+        var filtered = [];
+        var normCond = '';
+        if (cond != null)  normCond = cond.trim().toLowerCase();
+        angular.forEach(items, function(item) {
+            if (item.first_name.toLowerCase().includes(normCond) || item.last_name.toLowerCase().includes(normCond)) {
+                filtered.push(item);
+            }
+        });
+        return filtered;
+    };
+});
+
+app.filter("billFilter", function() {
+    return function(items, cond) {
+        var filtered = [];
+        var normCond = '';
+        if (cond != null)  normCond = cond.trim().toLowerCase();
+        angular.forEach(items, function(item) {
+            if (item.bill_id.toLowerCase().includes(normCond)) {
+                filtered.push(item);
+            }
+        });
+        return filtered;
+    };
+});
+
+app.filter("committeeFilter", function() {
+    return function(items, cond) {
+        var filtered = [];
+        var normCond = '';
+        if (cond != null)  normCond = cond.trim().toLowerCase();
+        angular.forEach(items, function(item) {
+            if (item.committee_id.toLowerCase().includes(normCond)) {
+                filtered.push(item);
+            }
+        });
+        return filtered;
+    };
+});
+
 app.controller('customerCtrl', function($scope, $localStorage, $http) {
 
     $scope.bills = [];
@@ -364,14 +406,17 @@ app.controller('customerCtrl', function($scope, $localStorage, $http) {
             $scope.website = x.website;
             $scope.websiteImg = 'images/w.png';
         }
+
         $http.get("../main.php?query=committees?member_ids=" + x.bioguide_id + "&per_page=5")
             .then(function (response) {
                 $scope.legislatorCommittees = response.data.results;
             });
+
         $http.get("../main.php?query=bills?sponsor_id=" + x.bioguide_id + "&per_page=5")
             .then(function (response) {
                 $scope.legislatorBills = response.data.results;
             });
+
         $("#legislatorCarousel").carousel(1);
     }
 

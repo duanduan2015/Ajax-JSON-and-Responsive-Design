@@ -16,12 +16,12 @@
                                     <td colspan="7" class="well well-sm">
                                         <b>Active Bills</b>
                                         <div class="pull-right">
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" ng-model="activeBillId" placeholder="Search">
                                         </div>
                                     </td>
                                 </tr>
                                 <tr><th>Bill ID</th><th>Bill Type</th><th>Title</th><th>Chamber</th><th>Introducted On</th><th>Sponsor</th><th></th></tr>
-                                <tr dir-paginate="x in activebills | itemsPerPage: 5" current-page="currentPageActiveBill" pagination-id="bill-active-table">
+                                <tr dir-paginate="x in activebills | billFilter: activeBillId | itemsPerPage: 5" current-page="currentPageActiveBill" pagination-id="bill-active-table">
                                     <td>{{ x.bill_id | uppercase}}</td>
                                     <td>{{ x.bill_type | uppercase }}</td>
                                     <td>{{ x.official_title }}</td>
@@ -41,12 +41,12 @@
                                     <td colspan="7" class="well well-sm">
                                         <b>New Bills</b>
                                         <div class="pull-right">
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" ng-model="newBillId" placeholder="Search">
                                         </div>
                                     </td>
                                 </tr>
                                 <tr><th>Bill ID</th><th>Bill Type</th><th>Title</th><th>Chamber</th><th>Introducted On</th><th>Sponsor</th><th></th></tr>
-                                <tr dir-paginate="x in newbills | itemsPerPage: 5" current-page="currentPageNewBill" pagination-id="bill-new-table">
+                                <tr dir-paginate="x in newbills | billFilter: newBillId | itemsPerPage: 5" current-page="currentPageNewBill" pagination-id="bill-new-table">
                                     <td>{{ x.bill_id | uppercase}}</td>
                                     <td>{{ x.bill_type | uppercase }}</td>
                                     <td>{{ x.official_title }}</td>
