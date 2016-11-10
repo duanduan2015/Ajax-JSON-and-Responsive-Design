@@ -118,7 +118,6 @@ app.controller('customerCtrl', function($scope, $localStorage, $http) {
     if ($localStorage.favorites == null) {
         $localStorage.favorites = {};
     }
-    //$http.get("../main.php?query=legislators")
     $http.get("../main.php?query=legislators")
             .then(function (response) {
                 $scope.legislatorsByHouse = [];
@@ -133,8 +132,7 @@ app.controller('customerCtrl', function($scope, $localStorage, $http) {
                     }
                 });
             });
-    //$http.get("../main.php?query=bills?per_page=50&history.active=true")
-    $http.get("../main.php?query=bills")
+    $http.get("../main.php?query=bills?per_page=50&history.active=true")
             .then(function (response) {
                 $scope.activebills = response.data.results;
                 angular.forEach(response.data.results, function(item) {
@@ -143,8 +141,7 @@ app.controller('customerCtrl', function($scope, $localStorage, $http) {
                 });
             });
 
-    //$http.get("../main.php?query=bills?per_page=50&history.active=false")
-    $http.get("../main.php?query=bills")
+    $http.get("../main.php?query=bills?per_page=50&history.active=false")
             .then(function (response) {
                 $scope.newbills = response.data.results;
                 angular.forEach(response.data.results, function(item) {
@@ -153,8 +150,7 @@ app.controller('customerCtrl', function($scope, $localStorage, $http) {
                 });
             });
 
-    //$http.get("../main.php?query=committees?per_page=all")
-    $http.get("../main.php?query=committees")
+    $http.get("../main.php?query=committees?per_page=all")
             .then(function (response) {
                 $scope.committeesByHouse = [];
                 $scope.committeesBySenate = [];

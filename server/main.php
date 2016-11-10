@@ -8,15 +8,11 @@ if (isset($_SERVER["REQUEST_METHOD"])) {
         )
     );
     $context = stream_context_create($opts);
-    //$url = "http://congress.api.sunlightfoundation.com/";
-    $url = "http://hengyang-zhao.ddns.net/~hzhao/fake-sunlight/";
+    $url = "http://congress.api.sunlightfoundation.com/";
+    //$url = "http://hengyang-zhao.ddns.net/~hzhao/fake-sunlight/";
     $apikey = "apikey=c8e8d23822424300b4043bb3ad752f57";
 
-    $filePath = $url . $_GET["query"];
-    $file = file_get_contents($filePath, false, $context);
-    echo $file;
-
-    /*if ($_GET["query"] == "legislators") {
+    if ($_GET["query"] == "legislators") {
         $filePath = $url . $_GET["query"] . "?&per_page=all&" . $apikey;
         $file = file_get_contents($filePath, false, $context);
         echo $file;
@@ -32,7 +28,7 @@ if (isset($_SERVER["REQUEST_METHOD"])) {
         $filePath = $url . $_GET["query"] . "&" . $apikey;
         $file = file_get_contents($filePath, false, $context);
         echo $file;
-    }*/
+    }
 
     $_SRVER["REQUEST_METHOD"] = null; 
 }
