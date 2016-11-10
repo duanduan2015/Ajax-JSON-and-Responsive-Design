@@ -29,3 +29,15 @@
 .whiteGrey {
     color: #e0e1e2;
 }
+
+.my-star-on {
+    text-shadow: -1px -1px 0 #888,  1px -1px 0 #888, -1px 1px 0 #888, 1px 1px 0 #888;
+    font-size: 18px;
+    color: yellow;
+}
+
+.my-star-off {
+    text-shadow: -1px -1px 0 #888,  1px -1px 0 #888, -1px 1px 0 #888, 1px 1px 0 #888;
+    font-size: 18px;
+    color: white;
+}

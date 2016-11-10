@@ -74,39 +74,92 @@ app.filter("stateFilter", function() {
     };
 });
 
+app.filter("favoriteCommittee", function() {
+    return function(items, cond) {
+        var filtered = [];
+        angular.forEach(items, function(item) {
+            if ( item.is_favorite == cond) {
+                filtered.push(item);
+            }
+        });
+        return filtered;
+    };
+});
+
+app.filter("favoriteBill", function() {
+    return function(items, cond) {
+        var filtered = [];
+        angular.forEach(items, function(item) {
+            if ( item.is_favorite == cond) {
+                filtered.push(item);
+            }
+        });
+        return filtered;
+    };
+});
+
+app.filter("favoriteLegislator", function() {
+    return function(items, cond) {
+        var filtered = [];
+        angular.forEach(items, function(item) {
+            if ( item.is_favorite == cond) {
+                filtered.push(item);
+            }
+        });
+        return filtered;
+    };
+});
 
 app.controller('customerCtrl', function($scope, $http) {
+
+    $scope.bills = [];
+    $scope.committees = [];
+    $scope.legislators = [];
+
+    //$http.get("../main.php?query=legislators")
     $http.get("../main.php?query=legislators")
             .then(function (response) {
-                $scope.legislators = response.data.results;
-                $scope.legislatorsByHouse= jQuery.grep($scope.legislators, function(obj, i) {
-                    return obj.chamber == "house"
-               });
-                $scope.legislatorsBySenate= jQuery.grep($scope.legislators, function(obj, i) {
-                    return obj.chamber == "senate"
-               });
+                $scope.legislatorsByHouse = [];
+                $scope.legislatorsBySenate = [];
+                angular.forEach(response.data.results, function(item) {
+                    item.is_favorite = false;
+                    $scope.legislators.push(item);
+                    if (item.chamber == "house") {
+                        $scope.legislatorsByHouse.push(item);
+                    } else {
+                        $scope.legislatorsBySenate.push(item);
+                    }
+                });
             });
-
-    $scope.favoriteLegislators = [];
-    $scope.favoriteLegislators = $scope.legislatorsBySenate;
-    $scope.favoriteBills = [];
-    $scope.favoriteCommittees = [];
-    $http.get("../main.php?query=bills?per_page=50&history.active=true")
+    //$http.get("../main.php?query=bills?per_page=50&history.active=true")
+    $http.get("../main.php?query=bills")
             .then(function (response) {
                 $scope.activebills = response.data.results;
+                angular.forEach(response.data.results, function(item) {
+                    item.is_favorite = false;
+                    $scope.bills.push(item);
+                });
             });
 
-    $http.get("../main.php?query=bills?per_page=50&history.active=false")
+    //$http.get("../main.php?query=bills?per_page=50&history.active=false")
+    $http.get("../main.php?query=bills")
             .then(function (response) {
                 $scope.newbills = response.data.results;
+                angular.forEach(response.data.results, function(item) {
+                    item.is_favorite = false;
+                    $scope.bills.push(item);
+                });
             });
 
-    $http.get("../main.php?query=committees?per_page=all")
+    //$http.get("../main.php?query=committees?per_page=all")
+    $http.get("../main.php?query=committees")
             .then(function (response) {
                 $scope.committeesByHouse = [];
                 $scope.committeesBySenate = [];
                 $scope.committeesByJoint = [];
                 angular.forEach(response.data.results, function(item) {
+                    item.is_favorite = false;
+                    $scope.committees.push(item);
                     if (item.chamber == "house") {
                         $scope.committeesByHouse.push(item);
                     } else if (item.chamber == "senate") {
@@ -116,6 +169,7 @@ app.controller('customerCtrl', function($scope, $http) {
                     }
                 });
             });
+
     $scope.getEmail = function(x) {
         if (x.oc_email == null) {
             return "N.A.";
@@ -125,6 +179,13 @@ app.controller('customerCtrl', function($scope, $http) {
 
     $scope.getImage = function(x) {
         return 'https://theunitedstates.io/images/congress/225x275/' + x.bioguide_id + '.jpg'; 
+    }
+
+    $scope.sub_committee = function(x) {
+        if (x.subcommittee == true) {
+            return "true";
+        }
+        return "false";
     }
 
     $scope.committee_id = function(x) {
@@ -178,7 +239,13 @@ app.controller('customerCtrl', function($scope, $http) {
         return Math.round((now - start) * 100 / (end - start));
     }
 
+    $scope.goBackViewBillsDetails = function(x) {
+        $('a[href="#billPage"]').tab('show');
+        $scope.clickViewBillsDetails(x);
+    }
+
     $scope.clickViewBillsDetails = function(x) {
+        $scope.item = x;
         $scope.bill_id = x.bill_id;
         $scope.bill_title = x.official_title;
         $scope.bill_sponsor = x.sponsor.title + ". " + x.sponsor.last_name + ", " + x.sponsor.first_name;
@@ -199,7 +266,27 @@ app.controller('customerCtrl', function($scope, $http) {
         $("#billCarousel").carousel(1);
     }
 
+    $scope.favoriteIconClassName = function(l) {
+        if (l.is_favorite == true) {
+            return "fa fa-star my-star-on";
+        }
+        return "fa fa-star my-star-off";
+    }
+
+    $scope.toggleFavorite = function(l) {
+        if (l.is_favorite == true) {
+            l.is_favorite = false;
+        } else {
+            l.is_favorite = true;
+        }
+    }
+
+    $scope.goBackViewDetails = function(x) {
+        $('a[href="#legislatorPage"]').tab('show');
+        $scope.clickViewDetails(x);
+    }
     $scope.clickViewDetails = function(x) {
+        $scope.item = x;
         $scope.img_src = 'https://theunitedstates.io/images/congress/225x275/' + x.bioguide_id + '.jpg'; 
         $scope.name = x.title + ". " + x.last_name + ", " + x.first_name;
         if (x.oc_email == null) {

@@ -20,8 +20,8 @@
                     <tr><th></th><th>Chamber</th><th>Committee ID</th><th>Name</th><th>Parent Committee</th><th>Contact</th><th>Office</th></tr>
                     <tr dir-paginate="x in committeesByHouse | itemsPerPage: 10" current-page="currentPageCommitteeHouse" pagination-id="committee-house-table">
                         <td>
-                            <button class="btn btn-default my-button pull-left" type="button">
-                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                            <button class="btn btn-default my-button pull-left" type="button" ng-click="toggleFavorite(x)">
+                                <i class="{{ favoriteIconClassName(x) }}" aria-hidden="true"></i>
                             </button>
                         </td>
                         <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
@@ -49,8 +49,8 @@
                     <tr><th></th><th>Chamber</th><th>Committee ID</th><th>Name</th><th>Parent Committee</th></tr>
                     <tr dir-paginate="x in committeesBySenate | itemsPerPage: 10" current-page="currentPageCommitteeSenate" pagination-id="committee-senate-table">
                         <td>
-                            <button class="btn btn-default my-button pull-left" type="button">
-                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                            <button class="btn btn-default my-button pull-left" type="button" ng-click="toggleFavorite(x)">
+                                <i class="{{ favoriteIconClassName(x) }}" aria-hidden="true"></i>
                             </button>
                         </td>
                         <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
@@ -76,8 +76,8 @@
                     <tr><th></th><th>Chamber</th><th>Committee ID</th><th>Name</th></tr>
                     <tr dir-paginate="x in committeesByJoint | itemsPerPage: 10" current-page="currentPageCommitteeJoint" pagination-id="committee-Joint-table">
                         <td>
-                            <button class="btn btn-default my-button pull-left" type="button">
-                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                            <button class="btn btn-default my-button pull-left" type="button" ng-click="toggleFavorite(x)">
+                                <i class="{{ favoriteIconClassName(x) }}" aria-hidden="true"></i>
                             </button>
                         </td>
                         <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">Joint</td>

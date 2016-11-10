@@ -87,7 +87,7 @@
                     </div>
                 </div>
             </div>
-            <div class="item col-sm-12 col-md-12">
+            <div id="legislatorDetails" class="item col-sm-12 col-md-12">
                 <div class="row" style="margin-bottom:0px;">
                     <div class="pull-left" style="margin-bottom:5px;margin-top:5px;margin-left:5px">
                         <button class="btn btn-default my-button pull-left" type="button" ng-click="goBackLegislator()">
@@ -95,8 +95,8 @@
                         </button><span style="font-size:25px">Details</span>
                     </div>
                     <div class="pull-right" style="margin-bottom:5px;margin-top:5px;margin-right:5px">
-                        <button class="btn btn-default my-button pull-left" type="button">
-                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <button class="btn btn-default my-button pull-left" type="button" ng-click="toggleFavorite(item)">
+                            <i class="{{ favoriteIconClassName(item) }}" aria-hidden="true"></i>
                         </button>
                     </div>
                 </div>

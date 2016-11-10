@@ -1,13 +1,13 @@
 <h2 class="page-header" style="margin-top:5px">Favorites</h2>
 <div style="width=100%;background-color:white">
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#favoriteLegislators">Legislators</a></li>
-        <li><a data-toggle="tab" href="#favoriteBills">Bills</a></li>
-        <li><a data-toggle="tab" href="#favoriteCommittees">Committees</a></li>
+        <li class="active"><a data-toggle="tab" href="#favoriteLegislator">Legislators</a></li>
+        <li><a data-toggle="tab" href="#favoriteBill">Bills</a></li>
+        <li><a data-toggle="tab" href="#favoriteCommittee">Committees</a></li>
     </ul>
     <div style="width:96%;margin-left:2%;margin-top:2%;" >
         <div class="tab-content">
-            <div id="favoriteLegislators" class="tab-pane fade in active">
+            <div id="favoriteLegislator" class="tab-pane fade in active">
                 <table class="table table-hover">
                     <tr>
                         <td colspan="8" class="well well-sm">
@@ -15,23 +15,66 @@
                         </td>
                     </tr>
                     <tr><th></th><th>Image</th><th>Party</th><th>Name</th><th>Chamber</th><th>State</th><th>Email</th><th></th></tr>
-                    <tr dir-paginate="x in legislatorsBySenate | itemsPerPage: 100" current-page="currentPageFL" pagination-id="fl">
+                    <tr ng-repeat="x in legislators | favoriteLegislator: true ">
                         <td>
-                            <button class="btn btn-default pull-left" type="button">
+                            <button class="btn btn-default pull-left" type="button" ng-click="toggleFavorite(x)">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </button>
                         </td>
-                        <td><img class="img-responsive" style="margin:0 auto;width:15px" ng-src="{{ getImage(x) }}"></td>
-                        <td><img style="width:15px" ng-src="{{ partyLogo(x.party)}}"></td>
+                        <td><img class="img-responsive" style="margin:0 auto;width:30px" ng-src="{{ getImage(x) }}"></td>
+                        <td><img style="width:20px" ng-src="{{ partyLogo(x.party)}}"></td>
                         <td>{{ x.first_name + ", " + x.last_name}}</td>
-                        <td><img style="width:15px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
+                        <td><img style="width:20px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
                         <td>{{ x.state_name }}</td>
                         <td>{{ getEmail(x) }}</td>
-                        <td><button type="button" class="btn btn-primary" ng-click="clickViewBillsDetails(x)">View Details</button></td>
+                        <td><button type="button" class="btn btn-primary" ng-click="goBackViewDetails(x)">View Details</button></td>
                     </tr>
-                    <div class="text-center">
-                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="fl"></dir-pagination-controls>
-                    </div>
+                </table>
+            </div>
+            <div id="favoriteBill" class="tab-pane fade in">
+                <table class="table table-hover">
+                    <tr>
+                        <td colspan="8" class="well well-sm">
+                            <b>Favorite Bills</b>
+                        </td>
+                    </tr>
+                    <tr><th></th><th>Bill ID</th><th>Bill Type</th><th>Title</th><th>Chamber</th><th>Introduced On</th><th>Sponsor</th><th></th></tr>
+                    <tr ng-repeat="x in bills | favoriteBill: true">
+                        <td>
+                            <button class="btn btn-default pull-left" type="button" ng-click="toggleFavorite(x)">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                        <td>{{ x.bill_id | uppercase}}</td>
+                        <td>{{ x.bill_type | uppercase }}</td>
+                        <td>{{ x.official_title }}</td>
+                        <td><img style="width:20px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
+                        <td>{{ x.introduced_on }}</td>
+                        <td>{{ x.sponsor.title + ". " + x.sponsor.last_name + ", " + x.sponsor.first_name }}</td>
+                        <td><button type="button" class="btn btn-primary" ng-click="goBackViewBillsDetails(x)">View Details</button></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="favoriteCommittee" class="tab-pane fade in">
+                <table class="table table-hover">
+                    <tr>
+                        <td colspan="8" class="well well-sm">
+                            <b>Favorite Committees</b>
+                        </td>
+                    </tr>
+                    <tr><th></th><th>Chamber</th><th>Committee ID</th><th>Name</th><th>Parent Committee</th><th>Sub Committee</th></tr>
+                    <tr ng-repeat="x in committees | favoriteCommittee: true">
+                        <td>
+                            <button class="btn btn-default pull-left" type="button" ng-click="toggleFavorite(x)">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                        <td><img style="width:20px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
+                        <td>{{ committee_id(x) }}</td>
+                        <td>{{ committee_name(x) }}</td>
+                        <td>{{ parent_committee_id(x) }}</td>
+                        <td>{{ sub_committee(x) }}</td>
+                    </tr>
                 </table>
             </div>
         </div>
