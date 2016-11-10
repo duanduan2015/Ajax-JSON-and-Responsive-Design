@@ -59,7 +59,7 @@ var stateNames = {
     "WI": "Wisconsin",
     "WY": "Wyoming"
 };
-var app = angular.module('myApp', ["angularUtils.directives.dirPagination"]);
+var app = angular.module('myApp', ["ngStorage", "angularUtils.directives.dirPagination"]);
 
 app.filter("stateFilter", function() {
     return function(items, cond) {
@@ -110,19 +110,21 @@ app.filter("favoriteLegislator", function() {
     };
 });
 
-app.controller('customerCtrl', function($scope, $http) {
+app.controller('customerCtrl', function($scope, $localStorage, $http) {
 
     $scope.bills = [];
     $scope.committees = [];
     $scope.legislators = [];
-
+    if ($localStorage.favorites == null) {
+        $localStorage.favorites = {};
+    }
     //$http.get("../main.php?query=legislators")
     $http.get("../main.php?query=legislators")
             .then(function (response) {
                 $scope.legislatorsByHouse = [];
                 $scope.legislatorsBySenate = [];
                 angular.forEach(response.data.results, function(item) {
-                    item.is_favorite = false;
+                    item.is_favorite = item.bioguide_id in $localStorage.favorites; 
                     $scope.legislators.push(item);
                     if (item.chamber == "house") {
                         $scope.legislatorsByHouse.push(item);
@@ -136,7 +138,7 @@ app.controller('customerCtrl', function($scope, $http) {
             .then(function (response) {
                 $scope.activebills = response.data.results;
                 angular.forEach(response.data.results, function(item) {
-                    item.is_favorite = false;
+                    item.is_favorite = item.bill_id in $localStorage.favorites;
                     $scope.bills.push(item);
                 });
             });
@@ -146,7 +148,7 @@ app.controller('customerCtrl', function($scope, $http) {
             .then(function (response) {
                 $scope.newbills = response.data.results;
                 angular.forEach(response.data.results, function(item) {
-                    item.is_favorite = false;
+                    item.is_favorite = item.bill_id in $localStorage.favorites;
                     $scope.bills.push(item);
                 });
             });
@@ -158,7 +160,7 @@ app.controller('customerCtrl', function($scope, $http) {
                 $scope.committeesBySenate = [];
                 $scope.committeesByJoint = [];
                 angular.forEach(response.data.results, function(item) {
-                    item.is_favorite = false;
+                    item.is_favorite = item.committee_id in $localStorage.favorites;
                     $scope.committees.push(item);
                     if (item.chamber == "house") {
                         $scope.committeesByHouse.push(item);
@@ -244,8 +246,9 @@ app.controller('customerCtrl', function($scope, $http) {
         $scope.clickViewBillsDetails(x);
     }
 
+    $scope.billitem = {};
     $scope.clickViewBillsDetails = function(x) {
-        $scope.item = x;
+        $scope.billitem = x;
         $scope.bill_id = x.bill_id;
         $scope.bill_title = x.official_title;
         $scope.bill_sponsor = x.sponsor.title + ". " + x.sponsor.last_name + ", " + x.sponsor.first_name;
@@ -266,8 +269,8 @@ app.controller('customerCtrl', function($scope, $http) {
         $("#billCarousel").carousel(1);
     }
 
-    $scope.favoriteIconClassName = function(l) {
-        if (l.is_favorite == true) {
+    $scope.favoriteIconClassName = function(x) {
+        if (x.is_favorite == true) {
             return "fa fa-star my-star-on";
         }
         return "fa fa-star my-star-off";
@@ -276,8 +279,32 @@ app.controller('customerCtrl', function($scope, $http) {
     $scope.toggleFavorite = function(l) {
         if (l.is_favorite == true) {
             l.is_favorite = false;
+            if (l.committee_id != null) {
+                delete $localStorage.favorites[l.committee_id];
+                return;
+            }
+            if (l.bioguide_id != null) {
+                delete $localStorage.favorites[l.bioguide_id];
+                return;
+            }
+            if (l.bill_id != null) {
+                delete $localStorage.favorites[l.bill_id];
+                return;
+            }
         } else {
             l.is_favorite = true;
+            if (l.committee_id != null) {
+                $localStorage.favorites[l.committee_id] = {};
+                return;
+            }
+            if (l.bioguide_id != null) {
+                $localStorage.favorites[l.bioguide_id] = {};
+                return;
+            }
+            if (l.bill_id != null) {
+                $localStorage.favorites[l.bill_id] = {};
+                return;
+            }
         }
     }
 
@@ -285,8 +312,9 @@ app.controller('customerCtrl', function($scope, $http) {
         $('a[href="#legislatorPage"]').tab('show');
         $scope.clickViewDetails(x);
     }
+    $scope.lgitem = {};
     $scope.clickViewDetails = function(x) {
-        $scope.item = x;
+        $scope.lgitem = x;
         $scope.img_src = 'https://theunitedstates.io/images/congress/225x275/' + x.bioguide_id + '.jpg'; 
         $scope.name = x.title + ". " + x.last_name + ", " + x.first_name;
         if (x.oc_email == null) {
