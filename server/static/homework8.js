@@ -157,10 +157,21 @@ app.controller('customerCtrl', function($scope, $localStorage, $http) {
     $scope.bills = [];
     $scope.committees = [];
     $scope.legislators = [];
+    $scope.navBarDisplay = "display:none;";
+    $scope.tabContentWidth = "col-sm-10 col-md-10";
+    $scope.toggleNavBar = function() {
+        if ($scope.navBarDisplay == "display:block;") {
+            $scope.navBarDisplay = "diplay:none;";
+            $scope.tabContentWidth = "col-sm-12 col-md-12";
+        } else {
+            $scope.navBarDisplay = "display:block";
+            $scope.tabContentWidth = "col-sm-10 col-md-10 col-offset-sm-2 col-offset-md-2";
+        }
+    }
     if ($localStorage.favorites == null) {
         $localStorage.favorites = {};
     }
-    $http.get("../main.php?query=legislators")
+    $http.get("../main.php?query=legislators?per_page=all")
             .then(function (response) {
                 $scope.legislatorsByHouse = [];
                 $scope.legislatorsBySenate = [];
@@ -174,6 +185,7 @@ app.controller('customerCtrl', function($scope, $localStorage, $http) {
                     }
                 });
             });
+    history.senate_passage_result__exists=true
     $http.get("../main.php?query=bills?per_page=50&history.active=true")
             .then(function (response) {
                 $scope.activebills = response.data.results;
@@ -295,15 +307,20 @@ app.controller('customerCtrl', function($scope, $localStorage, $http) {
         } else {
             $scope.bill_chamber = "Senate";
         }
-        if (x.history.active == false) {
-            $scope.bill_status = "New";
-        } else {
+        if (x.history.active == true) {
             $scope.bill_status = "Active";
+        } else {
+            $scope.bill_status = "New";
         }
         $scope.bill_introduced_on = x.introduced_on;
         $scope.bill_congress_url = x.urls.congress;
-        $scope.bill_version_status = x.last_version.version_name;
-        $scope.bill_url = x.last_version.urls.pdf;
+        if (x.last_version == null) {
+            $scope.bill_version_status = "N.A.";
+            $scope.bill_url = "N.A.";
+        } else {
+            $scope.bill_version_status = x.last_version.version_name;
+            $scope.bill_url = x.last_version.urls.pdf;
+        }
         $("#billCarousel").carousel(1);
     }
 
