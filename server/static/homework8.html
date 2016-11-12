@@ -59,28 +59,32 @@
                                             <div style="width:96%;margin-left:2%;margin-top:2%;margin-bottom:2%;">
                                                 <div class="tab-content">
                                                     <div id="state" class="tab-pane fade in active">
-                                                        <div class="row well well-sm" style="margin:0px;">
-                                                            <div class="col-xs-6 col-sm-9"><b>Legislators By State</b></div>
-                                                            <div class="col-xs-6 col-sm-3 pull-right">
-                                                                <select class="form-control" ng-model="selected" ng-init="selected='All States'" ng-options="opt for opt in stateOptions">
-                                                                </select>
+                                                        <div class="panel panel-default">
+                                                            <div class="row panel-heading" style="width:100%;margin:0px;">
+                                                                <div class="col-xs-6 col-sm-9"><b>Legislators By State</b></div>
+                                                                <div class="col-xs-6 col-sm-3 pull-right">
+                                                                    <select class="form-control" ng-model="selected" ng-init="selected='All States'" ng-options="opt for opt in stateOptions">
+                                                                    </select>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="row well well-lg" style="background-color:white;paddiing:5px;padding-top:0px;margin:0px;">
-                                                            <div class="table-responsive">
-                                                                <table class="table table-hover">
-                                                                    <tr><th>Party</th><th>Name</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr>
-                                                                    <tr dir-paginate="x in legislators | orderBy: 'last_name' | orderBy: 'state_name' | stateFilter: selected | itemsPerPage: 10 " current-page="currentPageLegislatorState" pagination-id="state-table">
-                                                                        <td><img style="width:30px" ng-src="{{ partyLogo(x.party) }}"></td>
-                                                                        <td>{{ x.last_name + ", " + x.first_name}}</td>
-                                                                        <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
-                                                                        <td>{{ districtNum(x.district) }}</td>
-                                                                        <td>{{ x.state_name }}</td>
-                                                                        <td><button type="button" class="btn btn-primary" ng-click="clickViewDetails(x)">View Details</button></td>
-                                                                    </tr>
-                                                                </table>
-                                                                <div class="text-center">
-                                                                    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="state-table"></dir-pagination-controls>
+                                                            <div class="panel-body" style="background-color:white;paddiing:5px;padding-top:0px;margin:0px;">
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-hover">
+                                                                        <thead><tr><th>Party</th><th>Name</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr></thead>
+                                                                        <tbody>
+                                                                        <tr dir-paginate="x in legislators | orderBy: 'last_name' | orderBy: 'state_name' | stateFilter: selected | itemsPerPage: 10 " current-page="currentPageLegislatorState" pagination-id="state-table">
+                                                                            <td><img style="width:30px" ng-src="{{ partyLogo(x.party) }}"></td>
+                                                                            <td>{{ x.last_name + ", " + x.first_name}}</td>
+                                                                            <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
+                                                                            <td>{{ districtNum(x.district) }}</td>
+                                                                            <td>{{ x.state_name }}</td>
+                                                                            <td><button type="button" class="btn btn-primary" ng-click="clickViewDetails(x)">View Details</button></td>
+                                                                        </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <div class="text-center">
+                                                                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="state-table"></dir-pagination-controls>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
