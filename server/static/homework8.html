@@ -90,53 +90,61 @@
                                                         </div>
                                                     </div>
                                                     <div id="house" class="tab-pane fade">
-                                                        <div class="row well well-sm" style="margin:0px;">
-                                                            <div class="col-xs-6 col-sm-9"><b>Legislators By House</b></div>
-                                                            <div class="col-xs-6 col-sm-3 pull-right">
-                                                                <input type="text" class="form-control" ng-model="nameFilterTextByHouse" placeholder="Search">
+                                                        <div class="panel panel-default">
+                                                            <div class="row panel-heading" style="width:100%;margin:0px;">
+                                                                <div class="col-xs-6 col-sm-9"><b>Legislators By House</b></div>
+                                                                <div class="col-xs-6 col-sm-3 pull-right">
+                                                                    <input type="text" class="form-control" ng-model="nameFilterTextByHouse" placeholder="Search">
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="row well well-lg" style="background-color:white;paddiing:5px;padding-top:0px;margin:0px;">
-                                                            <div class="table-responsive">
-                                                                <table class="table table-hover">
-                                                                    <tr><th>Party</th><th>Name</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr>
-                                                                    <tr dir-paginate="x in legislatorsByHouse | nameFilter: nameFilterTextByHouse | orderBy: 'state_name' | orderBy:'last_name' | itemsPerPage: 10" current-page="currentPageLegislatorHouse" pagination-id="house-table">
-                                                                        <td><img style="width:30px" ng-src="{{ partyLogo(x.party) }}"></td>
-                                                                        <td>{{ x.last_name + ", " + x.first_name}}</td>
-                                                                        <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
-                                                                        <td>{{ districtNum(x.district) }}</td>
-                                                                        <td>{{ x.state_name }}</td>
-                                                                        <td><button type="button" class="btn btn-primary" ng-click="clickViewDetails(x)" >View Details</button></td>
-                                                                    </tr>
-                                                                </table>
-                                                                <div class="text-center">
-                                                                    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="house-table"></dir-pagination-controls>
+                                                            <div class="panel-body" style="background-color:white;paddiing:5px;padding-top:0px;margin:0px;">
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-hover">
+                                                                        <thead><tr><th>Party</th><th>Name</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr></thead>
+                                                                        <tbody>
+                                                                        <tr dir-paginate="x in legislatorsByHouse | nameFilter: nameFilterTextByHouse | orderBy: 'state_name' | orderBy:'last_name' | itemsPerPage: 10" current-page="currentPageLegislatorHouse" pagination-id="house-table">
+                                                                            <td><img style="width:30px" ng-src="{{ partyLogo(x.party) }}"></td>
+                                                                            <td>{{ x.last_name + ", " + x.first_name}}</td>
+                                                                            <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
+                                                                            <td>{{ districtNum(x.district) }}</td>
+                                                                            <td>{{ x.state_name }}</td>
+                                                                            <td><button type="button" class="btn btn-primary" ng-click="clickViewDetails(x)" >View Details</button></td>
+                                                                        </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <div class="text-center">
+                                                                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="house-table"></dir-pagination-controls>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div id="senate" class="tab-pane fade">
-                                                        <div class="row well well-sm" style="margin:0px;">
-                                                            <div class="col-xs-6 col-sm-9"><b>Legislators By Senate</b></div>
-                                                            <div class="col-xs-6 col-sm-3 pull-right">
-                                                                <input type="text" class="form-control" ng-model="nameFilterTextBySenate" placeholder="Search">
+                                                        <div class="panel panel-default">
+                                                            <div class="row panel-heading" style="width:100%;margin:0px;">
+                                                                <div class="col-xs-6 col-sm-9"><b>Legislators By Senate</b></div>
+                                                                <div class="col-xs-6 col-sm-3 pull-right">
+                                                                    <input type="text" class="form-control" ng-model="nameFilterTextBySenate" placeholder="Search">
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="row well well-lg" style="background-color:white;paddiing:10px;padding-top:0px;margin:0px;">
-                                                            <div class="table-responsive">
-                                                                <table class="table table-hover">
-                                                                    <tr><th>Party</th><th>Nmae</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr>
-                                                                    <tr dir-paginate="x in legislatorsBySenate | nameFilter: nameFilterTextBySenate| orderBy:'state_name' |  orderBy: 'last_name' | itemsPerPage: 10  " current-page="currentPageLegislatorSenate" pagination-id="senate-table">
-                                                                        <td><img style="width:30px" ng-src="{{ partyLogo(x.party) }}"></td>
-                                                                        <td>{{ x.last_name + ", " + x.first_name}}</td>
-                                                                        <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
-                                                                        <td>{{ districtNum(x.district) }}</td>
-                                                                        <td>{{ x.state_name }}</td>
-                                                                        <td><button type="button" class="btn btn-primary" ng-click="clickViewDetails(x)" >View Details</button></td>
-                                                                    </tr>
-                                                                </table>
-                                                                <div class="text-center">
-                                                                    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="senate-table"></dir-pagination-controls>
+                                                            <div class="panel-body" style="background-color:white;paddiing:10px;padding-top:0px;margin:0px;">
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-hover">
+                                                                        <thead><tr><th>Party</th><th>Nmae</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr></thead>
+                                                                        <tbody>
+                                                                        <tr dir-paginate="x in legislatorsBySenate | nameFilter: nameFilterTextBySenate| orderBy:'state_name' |  orderBy: 'last_name' | itemsPerPage: 10  " current-page="currentPageLegislatorSenate" pagination-id="senate-table">
+                                                                            <td><img style="width:30px" ng-src="{{ partyLogo(x.party) }}"></td>
+                                                                            <td>{{ x.last_name + ", " + x.first_name}}</td>
+                                                                            <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
+                                                                            <td>{{ districtNum(x.district) }}</td>
+                                                                            <td>{{ x.state_name }}</td>
+                                                                            <td><button type="button" class="btn btn-primary" ng-click="clickViewDetails(x)" >View Details</button></td>
+                                                                        </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <div class="text-center">
+                                                                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="senate-table"></dir-pagination-controls>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -235,7 +243,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="billPage" class="tab-pane fade well well-lg" style="padding:1%">
+                        <div id="billPage" class="tab-pane fade well well-lg" style="padding:1%;padding-bottom:30%;">
                             <h2 class="page-header" style="margin-top:0px;padding-top:10px;">Bills</h2>
                             <div class="well well-lg" style="background-color:white;padding:0px;box-shadow:5px 5px 20px grey;">
                                 <div id="billCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
@@ -249,55 +257,63 @@
                                             <div style="width:96%;margin-left:2%;margin-top:2%;margin-bottom:2%;" >
                                                 <div class="tab-content">
                                                     <div id="activeBills" class="tab-pane fade in active">
-                                                        <div class="row well well-sm" style="paddiing:0px;margin:0px;">
-                                                            <div class="col-xs-6 col-sm-9"><b>Active Bills</b></div>
-                                                            <div class="col-xs-6 col-sm-3 pull-right">
-                                                                <input type="text" class="form-control" ng-model="activeBillId" placeholder="Search">
+                                                        <div class="panel panel-default">
+                                                            <div class="row panel-heading" style="paddiing:0px;margin:0px;">
+                                                                <div class="col-xs-6 col-sm-9"><b>Active Bills</b></div>
+                                                                <div class="col-xs-6 col-sm-3 pull-right">
+                                                                    <input type="text" class="form-control" ng-model="activeBillId" placeholder="Search">
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="row well well-lg" style="background-color:white;paddiing:5px;padding-top:0px;margin:0px;">
-                                                            <div class="table-responsive">
-                                                                <table class="table table-hover">
-                                                                    <tr><th>Bill ID</th><th>Bill Type</th><th clas="hide-small">Title</th><th>Chamber</th><th>Introducted On</th><th>Sponsor</th><th></th></tr>
-                                                                    <tr dir-paginate="x in activebills | billFilter: activeBillId | orderBy: 'introduced_on': true | itemsPerPage: 5" current-page="currentPageActiveBill" pagination-id="bill-active-table">
-                                                                        <td>{{ x.bill_id | uppercase}}</td>
-                                                                        <td>{{ x.bill_type | uppercase }}</td>
-                                                                        <td class="hide-small">{{ x.official_title }}</td>
-                                                                        <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
-                                                                        <td>{{ x.introduced_on }}</td>
-                                                                        <td>{{ x.sponsor.title + ". " + x.sponsor.last_name + ", " + x.sponsor.first_name }}</td>
-                                                                        <td><button type="button" class="btn btn-primary" ng-click="clickViewBillsDetails(x)">View Details</button></td>
-                                                                    </tr>
-                                                                </table>
-                                                                <div class="text-center">
-                                                                    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="bill-active-table"></dir-pagination-controls>
+                                                            <div class="panel-body" style="background-color:white;paddiing:5px;padding-top:0px;margin:0px;">
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-hover">
+                                                                        <thead><tr><th>Bill ID</th><th>Bill Type</th><th class="hide-small">Title</th><th>Chamber</th><th>Introducted On</th><th>Sponsor</th><th></th></tr></thead>
+                                                                        <tbody>
+                                                                        <tr dir-paginate="x in activebills | billFilter: activeBillId | orderBy: 'introduced_on': true | itemsPerPage: 5" current-page="currentPageActiveBill" pagination-id="bill-active-table">
+                                                                            <td>{{ x.bill_id | uppercase}}</td>
+                                                                            <td>{{ x.bill_type | uppercase }}</td>
+                                                                            <td class="hide-small">{{ x.official_title }}</td>
+                                                                            <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
+                                                                            <td>{{ x.introduced_on }}</td>
+                                                                            <td>{{ x.sponsor.title + ". " + x.sponsor.last_name + ", " + x.sponsor.first_name }}</td>
+                                                                            <td><button type="button" class="btn btn-primary" ng-click="clickViewBillsDetails(x)">View Details</button></td>
+                                                                        </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <div class="text-center">
+                                                                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="bill-active-table"></dir-pagination-controls>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div id="newBills" class="tab-pane fade">
-                                                        <div class="row well well-sm" style="paddiing:0px;margin:0px;">
-                                                            <div class="col-xs-6 col-sm-9"><b>New Bills</b></div>
-                                                            <div class="col-xs-6 col-sm-3 pull-right">
-                                                                <input type="text" class="form-control" ng-model="newBillId" placeholder="Search">
+                                                        <div class="panel panel-default">
+                                                            <div class="row panel-heading" style="paddiing:0px;margin:0px;">
+                                                                <div class="col-xs-6 col-sm-9"><b>New Bills</b></div>
+                                                                <div class="col-xs-6 col-sm-3 pull-right">
+                                                                    <input type="text" class="form-control" ng-model="newBillId" placeholder="Search">
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="row well well-lg" style="background-color:white;paddiing:5px;padding-top:0px;margin:0px;">
-                                                            <div class="table-responsive">
-                                                                <table class="table table-hover">
-                                                                    <tr><th>Bill ID</th><th>Bill Type</th><th class="hide-small">Title</th><th>Chamber</th><th>Introducted On</th><th>Sponsor</th><th></th></tr>
-                                                                    <tr dir-paginate="x in newbills | billFilter: newBillId | orderBy: 'introduced_on' : true | itemsPerPage: 5" current-page="currentPageNewBill" pagination-id="bill-new-table">
-                                                                        <td>{{ x.bill_id | uppercase}}</td>
-                                                                        <td>{{ x.bill_type | uppercase }}</td>
-                                                                        <td class="hide-small">{{ x.official_title }}</td>
-                                                                        <td><img style="width:30px" ng-src="{{chamberLogo(b.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
-                                                                        <td>{{ x.introduced_on }}</td>
-                                                                        <td>{{ x.sponsor.title + ". " + x.sponsor.last_name + ", " + x.sponsor.first_name }}</td>
-                                                                        <td><button type="button" class="btn btn-primary" ng-click="clickViewBillsDetails(x)">View Details</button></td>
-                                                                    </tr>
-                                                                </table>
-                                                                <div class="text-center">
-                                                                    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="bill-new-table"></dir-pagination-controls>
+                                                            <div class="panel-body" style="background-color:white;paddiing:5px;padding-top:0px;margin:0px;">
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-hover">
+                                                                        <thead><tr><th>Bill ID</th><th>Bill Type</th><th class="hide-small">Title</th><th>Chamber</th><th>Introducted On</th><th>Sponsor</th><th></th></tr></thead>
+                                                                        <tbody>
+                                                                        <tr dir-paginate="x in newbills | billFilter: newBillId | orderBy: 'introduced_on' : true | itemsPerPage: 5" current-page="currentPageNewBill" pagination-id="bill-new-table">
+                                                                            <td>{{ x.bill_id | uppercase}}</td>
+                                                                            <td>{{ x.bill_type | uppercase }}</td>
+                                                                            <td class="hide-small">{{ x.official_title }}</td>
+                                                                            <td><img style="width:30px" ng-src="{{chamberLogo(b.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
+                                                                            <td>{{ x.introduced_on }}</td>
+                                                                            <td>{{ x.sponsor.title + ". " + x.sponsor.last_name + ", " + x.sponsor.first_name }}</td>
+                                                                            <td><button type="button" class="btn btn-primary" ng-click="clickViewBillsDetails(x)">View Details</button></td>
+                                                                        </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <div class="text-center">
+                                                                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="bill-new-table"></dir-pagination-controls>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -343,7 +359,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="committeePage" class="tab-pane fade well well-lg" style="padding:1%">
+                        <div id="committeePage" class="tab-pane fade well well-lg" style="padding:1%;padding-bottom:30%;">
                             <h2 class="page-header" style="margin-top:0px;padding-top:10px;">Committees</h2>
                             <div class="well well-lg" style="background-color:white;padding:0px;box-shadow:5px 5px 20px grey;">
                                 <ul class="nav nav-tabs">
@@ -354,89 +370,101 @@
                                 <div style="width:96%;margin-left:2%;margin-top:2%;margin-bottom:2%" >
                                     <div class="tab-content">
                                         <div id="comByHouse" class="tab-pane fade in active">
-                                            <div class="row well well-sm" style="paddiing:0px;margin:0px;">
-                                                <div class="col-xs-6 col-sm-9"><b>House</b></div>
-                                                <div class="col-xs-6 col-sm-3 pull-right">
-                                                    <input type="text" class="form-control" ng-model="committeeIdByHouse" placeholder="Search">
+                                            <div class="panel panel-default">
+                                                <div class="row panel-heading" style="paddiing:0px;margin:0px;">
+                                                    <div class="col-xs-6 col-sm-9"><b>House</b></div>
+                                                    <div class="col-xs-6 col-sm-3 pull-right">
+                                                        <input type="text" class="form-control" ng-model="committeeIdByHouse" placeholder="Search">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row well well-lg" style="background-color:white;paddiing:5px;padding-top:0px;margin:0px;">
-                                                <div class="table-responsive">
-                                                    <table class="table table-hover">
-                                                        <tr><th></th><th>Chamber</th><th>Committee ID</th><th>Name</th><th>Parent Committee</th><th>Contact</th><th>Office</th></tr>
-                                                        <tr dir-paginate="x in committeesByHouse | committeeFilter: committeeIdByHouse | orderBy: 'committee_id' | itemsPerPage: 10" current-page="currentPageCommitteeHouse" pagination-id="committee-house-table">
-                                                            <td>
-                                                                <button class="btn btn-default my-button pull-left" type="button" ng-click="toggleFavorite(x)">
-                                                                    <i class="{{ favoriteIconClassName(x) }}" aria-hidden="true"></i>
-                                                                </button>
-                                                            </td>
-                                                            <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
-                                                            <td>{{ committee_id(x) }}</td>
-                                                            <td>{{ committee_name(x) }}</td>
-                                                            <td>{{ parent_committee_id(x) }}</td>
-                                                            <td>{{ committee_phone(x) }}</td>
-                                                            <td>{{ committee_office(x) }}</td>
-                                                        </tr>
-                                                    </table>
-                                                    <div class="text-center">
-                                                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="committee-house-table"></dir-pagination-controls>
+                                                <div class="panel-body" style="background-color:white;paddiing:5px;padding-top:0px;margin:0px;">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover">
+                                                            <thead><tr><th></th><th>Chamber</th><th>Committee ID</th><th>Name</th><th>Parent Committee</th><th>Contact</th><th>Office</th></tr></thead>
+                                                            <tbody>
+                                                                <tr dir-paginate="x in committeesByHouse | committeeFilter: committeeIdByHouse | orderBy: 'committee_id' | itemsPerPage: 10" current-page="currentPageCommitteeHouse" pagination-id="committee-house-table">
+                                                                    <td>
+                                                                        <button class="btn btn-default my-button pull-left" type="button" ng-click="toggleFavorite(x)">
+                                                                            <i class="{{ favoriteIconClassName(x) }}" aria-hidden="true"></i>
+                                                                        </button>
+                                                                    </td>
+                                                                    <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
+                                                                    <td>{{ committee_id(x) }}</td>
+                                                                    <td>{{ committee_name(x) }}</td>
+                                                                    <td>{{ parent_committee_id(x) }}</td>
+                                                                    <td>{{ committee_phone(x) }}</td>
+                                                                    <td>{{ committee_office(x) }}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <div class="text-center">
+                                                            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="committee-house-table"></dir-pagination-controls>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div id="comBySenate" class="tab-pane fade">
-                                            <div class="row well well-sm" style="paddiing:0px;margin:0px;">
-                                                <div class="col-xs-6 col-sm-9"><b>Senate</b></div>
-                                                <div class="col-xs-6 col-sm-3 pull-right">
-                                                    <input type="text" class="form-control" ng-model="committeeIdBySenate" placeholder="Search">
+                                            <div class="panel panel-default">
+                                                <div class="row panel-heading" style="paddiing:0px;margin:0px;">
+                                                    <div class="col-xs-6 col-sm-9"><b>Senate</b></div>
+                                                    <div class="col-xs-6 col-sm-3 pull-right">
+                                                        <input type="text" class="form-control" ng-model="committeeIdBySenate" placeholder="Search">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row well well-lg" style="background-color:white;paddiing:5px;padding-top:0px;margin:0px;">
-                                                <div class="table-responsive">
-                                                    <table class="table table-hover">
-                                                        <tr><th></th><th>Chamber</th><th>Committee ID</th><th>Name</th><th>Parent Committee</th></tr>
-                                                        <tr dir-paginate="x in committeesBySenate | committeeFilter: committeeIdBySenate | orderBy: 'committee_id' | itemsPerPage: 10" current-page="currentPageCommitteeSenate" pagination-id="committee-senate-table">
-                                                            <td>
-                                                                <button class="btn btn-default my-button pull-left" type="button" ng-click="toggleFavorite(x)">
-                                                                    <i class="{{ favoriteIconClassName(x) }}" aria-hidden="true"></i>
-                                                                </button>
-                                                            </td>
-                                                            <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
-                                                            <td>{{ committee_id(x) }}</td>
-                                                            <td>{{ committee_name(x) }}</td>
-                                                            <td>{{ parent_committee_id(x) }}</td>
-                                                        </tr>
-                                                    </table>
-                                                    <div class="text-center">
-                                                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="committee-senate-table"></dir-pagination-controls>
+                                                <div class="panel-body" style="background-color:white;paddiing:5px;padding-top:0px;margin:0px;">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover">
+                                                            <thead><tr><th></th><th>Chamber</th><th>Committee ID</th><th>Name</th><th>Parent Committee</th></tr></thead>
+                                                            <tbody>
+                                                            <tr dir-paginate="x in committeesBySenate | committeeFilter: committeeIdBySenate | orderBy: 'committee_id' | itemsPerPage: 10" current-page="currentPageCommitteeSenate" pagination-id="committee-senate-table">
+                                                                <td>
+                                                                    <button class="btn btn-default my-button pull-left" type="button" ng-click="toggleFavorite(x)">
+                                                                        <i class="{{ favoriteIconClassName(x) }}" aria-hidden="true"></i>
+                                                                    </button>
+                                                                </td>
+                                                                <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">{{" " + chamberName(x.chamber) }}</td>
+                                                                <td>{{ committee_id(x) }}</td>
+                                                                <td>{{ committee_name(x) }}</td>
+                                                                <td>{{ parent_committee_id(x) }}</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <div class="text-center">
+                                                            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="committee-senate-table"></dir-pagination-controls>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div id="comByJoint" class="tab-pane fade">
-                                            <div class="row well well-sm" style="paddiing:0px;margin:0px;">
-                                                <div class="col-xs-6 col-sm-9"><b>Joint</b></div>
-                                                <div class="col-xs-6 col-sm-3 pull-right">
-                                                    <input type="text" class="form-control" ng-model="committeeIdByJoint" placeholder="Search">
+                                            <div class="panel panel-default">
+                                                <div class="row panel-heading" style="paddiing:0px;margin:0px;">
+                                                    <div class="col-xs-6 col-sm-9"><b>Joint</b></div>
+                                                    <div class="col-xs-6 col-sm-3 pull-right">
+                                                        <input type="text" class="form-control" ng-model="committeeIdByJoint" placeholder="Search">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row well well-lg" style="background-color:white;paddiing:5px;padding-top:0px;margin:0px;">
-                                                <div class="table-responsive">
-                                                    <table class="table table-hover">
-                                                        <tr><th></th><th>Chamber</th><th>Committee ID</th><th>Name</th></tr>
-                                                        <tr dir-paginate="x in committeesByJoint | committeeFilter: committeeIdByJoint | orderBy: 'committee_id' | itemsPerPage: 10" current-page="currentPageCommitteeJoint" pagination-id="committee-Joint-table">
-                                                            <td>
-                                                                <button class="btn btn-default my-button pull-left" type="button" ng-click="toggleFavorite(x)">
-                                                                    <i class="{{ favoriteIconClassName(x) }}" aria-hidden="true"></i>
-                                                                </button>
-                                                            </td>
-                                                            <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">Joint</td>
-                                                            <td>{{ committee_id(x) }}</td>
-                                                            <td>{{ committee_name(x) }}</td>
-                                                        </tr>
-                                                    </table>
-                                                    <div class="text-center">
-                                                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="committee-Joint-table"></dir-pagination-controls>
+                                                <div class="panel-body" style="background-color:white;paddiing:5px;padding-top:0px;margin:0px;">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover">
+                                                            <thead><tr><th></th><th>Chamber</th><th>Committee ID</th><th>Name</th></tr></thead>
+                                                            <tbody>
+                                                            <tr dir-paginate="x in committeesByJoint | committeeFilter: committeeIdByJoint | orderBy: 'committee_id' | itemsPerPage: 10" current-page="currentPageCommitteeJoint" pagination-id="committee-Joint-table">
+                                                                <td>
+                                                                    <button class="btn btn-default my-button pull-left" type="button" ng-click="toggleFavorite(x)">
+                                                                        <i class="{{ favoriteIconClassName(x) }}" aria-hidden="true"></i>
+                                                                    </button>
+                                                                </td>
+                                                                <td><img style="width:30px" ng-src="{{chamberLogo(x.chamber) }}">Joint</td>
+                                                                <td>{{ committee_id(x) }}</td>
+                                                                <td>{{ committee_name(x) }}</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <div class="text-center">
+                                                            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="committee-Joint-table"></dir-pagination-controls>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -445,7 +473,7 @@
                                 </div>                
                             </div>
                         </div>
-                        <div id="favoritePage" class="tab-pane fade well well-lg" style="padding:1%">
+                        <div id="favoritePage" class="tab-pane fade well well-lg" style="padding:1%;padding-bottom:30%;">
                             <h2 class="page-header" style="margin-top:0px;padding-top:10px;">Favorites</h2>
                             <div class="well well-lg" style="background-color:white;padding:0px;">
                                 <ul class="nav nav-tabs">
@@ -461,7 +489,8 @@
                                             </div>
                                             <div class="table-responsive">
                                                 <table class="table table-hover" frame="box" bordercolor="#f5f5f5">
-                                                    <tr><th></th><th>Image</th><th>Party</th><th>Name</th><th>Chamber</th><th>State</th><th>Email</th><th></th></tr>
+                                                    <thead><tr><th></th><th>Image</th><th>Party</th><th>Name</th><th>Chamber</th><th>State</th><th>Email</th><th></th></tr></thead>
+                                                    <tbody>
                                                     <tr ng-repeat="x in legislators | favoriteLegislator: true ">
                                                         <td>
                                                             <button class="btn btn-default pull-left" type="button" ng-click="toggleFavorite(x)">
@@ -476,6 +505,7 @@
                                                         <td><a target="_blank" ng-href="mailto:{{ getEmail(x) }}">{{getEmail(x)}}</a></td>
                                                         <td><button type="button" class="btn btn-primary" ng-click="goBackViewDetails(x)">View Details</button></td>
                                                     </tr>
+                                                    </tbody>
                                                 </table>
                                             </div>
                                         </div>
@@ -485,7 +515,8 @@
                                             </div>
                                             <div class="table-responsive">
                                                 <table class="table table-hover" frame="box" bordercolor="#f5f5f5">
-                                                    <tr><th></th><th>Bill ID</th><th>Bill Type</th><th>Title</th><th>Chamber</th><th>Introduced On</th><th>Sponsor</th><th></th></tr>
+                                                    <thead><tr><th></th><th>Bill ID</th><th>Bill Type</th><th>Title</th><th>Chamber</th><th>Introduced On</th><th>Sponsor</th><th></th></tr></thead>
+                                                    <tbody>
                                                     <tr ng-repeat="x in bills | favoriteBill: true">
                                                         <td>
                                                             <button class="btn btn-default pull-left" type="button" ng-click="toggleFavorite(x)">
@@ -500,6 +531,7 @@
                                                         <td>{{ x.sponsor.title + ". " + x.sponsor.last_name + ", " + x.sponsor.first_name }}</td>
                                                         <td><button type="button" class="btn btn-primary" ng-click="goBackViewBillsDetails(x)">View Details</button></td>
                                                     </tr>
+                                                    </tbody>
                                                 </table>
                                             </div>
                                         </div>
@@ -508,7 +540,8 @@
                                                 <b>Favorite Committees</b>
                                             </div>
                                             <div class="table-responsive">
-                                                <table class="table table-hover" frame="box" bordercolor="#f5f5f5">
+                                                <thead><table class="table table-hover" frame="box" bordercolor="#f5f5f5"></thead>
+                                                <tbody>
                                                     <tr><th></th><th>Chamber</th><th>Committee ID</th><th>Name</th><th>Parent Committee</th><th>Sub Committee</th></tr>
                                                     <tr ng-repeat="x in committees | favoriteCommittee: true">
                                                         <td>
@@ -522,6 +555,7 @@
                                                         <td>{{ parent_committee_id(x) }}</td>
                                                         <td>{{ sub_committee(x) }}</td>
                                                     </tr>
+                                                </tbody>
                                                 </table>
                                                 <div>
                                                 </div>
