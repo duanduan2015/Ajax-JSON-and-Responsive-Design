@@ -115,8 +115,28 @@ app.filter("nameFilter", function() {
         var filtered = [];
         var normCond = '';
         if (cond != null)  normCond = cond.trim().toLowerCase();
+        var conds = normCond.split(" ");
         angular.forEach(items, function(item) {
-            if (item.first_name.toLowerCase().includes(normCond) || item.last_name.toLowerCase().includes(normCond)) {
+            var canAdd = false;
+            angular.forEach(conds, function(cond) {
+                if (item.first_name.toLowerCase().includes(cond)) {
+                    canAdd = true;
+                    return;
+                }
+                if (item.last_name.toLowerCase().includes(cond)) {
+                    canAdd = true;
+                    return;
+                }
+                if (parseInt(cond) != null && item.district == parseInt(cond)) {
+                    canAdd = true;
+                    return;
+                }
+                if (item.state_name.toLowerCase().includes(cond)) {
+                    canAdd = true;
+                    return;
+                }
+            });
+            if (canAdd) {
                 filtered.push(item);
             }
         });
@@ -129,8 +149,36 @@ app.filter("billFilter", function() {
         var filtered = [];
         var normCond = '';
         if (cond != null)  normCond = cond.trim().toLowerCase();
+        var conds = normCond.split(" ");
         angular.forEach(items, function(item) {
-            if (item.bill_id.toLowerCase().includes(normCond)) {
+            var canAdd = false;
+            angular.forEach(conds, function(cond) {
+                if (item.bill_id.toLowerCase().includes(cond)) {
+                    canAdd = true;
+                    return;
+                }
+                if (item.bill_type.toLowerCase().includes(cond)) {
+                    canAdd = true;
+                    return;
+                }
+                if (item.official_title.toLowerCase().includes(cond)) {
+                    canAdd = true;
+                    return;
+                }
+                if (item.sponsor.first_name.toLowerCase().includes(cond)) {
+                    canAdd = true;
+                    return;
+                }
+                if (item.sponsor.last_name.toLowerCase().includes(cond)) {
+                    canAdd = true;
+                    return;
+                }
+                if (item.sponsor_id.toLowerCase().includes(cond)) {
+                    canAdd = true;
+                    return;
+                }
+            });
+            if (canAdd) {
                 filtered.push(item);
             }
         });
@@ -143,8 +191,32 @@ app.filter("committeeFilter", function() {
         var filtered = [];
         var normCond = '';
         if (cond != null)  normCond = cond.trim().toLowerCase();
+        var conds = normCond.split(" ");
         angular.forEach(items, function(item) {
-            if (item.committee_id.toLowerCase().includes(normCond)) {
+            var canAdd = false;
+            angular.forEach(conds, function(cond) {
+                if (item.committee_id.toLowerCase().includes(cond)) {
+                    canAdd = true;
+                    return;
+                }
+                if (item.name.toLowerCase().includes(cond)) {
+                    canAdd = true;
+                    return;
+                }
+                if (item.paretn_committee_id != null && item.parent_committee_id.toLowerCase().includes(cond)) {
+                    canAdd = true;
+                    return;
+                }
+                if (item.phone != null && item.phone.toLowerCase().includes(cond)) {
+                    canAdd = true;
+                    return;
+                }
+                if (item.office != null && item.office.toLowerCase().includes(cond)) {
+                    canAdd = true;
+                    return;
+                }
+            });
+            if (canAdd) {
                 filtered.push(item);
             }
         });
@@ -157,21 +229,23 @@ app.controller('customerCtrl', function($scope, $localStorage, $http) {
     $scope.bills = [];
     $scope.committees = [];
     $scope.legislators = [];
-    $scope.navBarDisplay = "display:none;";
-    $scope.tabContentWidth = "col-sm-10 col-md-10";
+    $scope.isDisplayNavBar = true;
+    $scope.mainViewWidth = "col-xs-10";
     $scope.toggleNavBar = function() {
-        if ($scope.navBarDisplay == "display:block;") {
-            $scope.navBarDisplay = "diplay:none;";
-            $scope.tabContentWidth = "col-sm-12 col-md-12";
+        if ($scope.isDisplayNavBar == true) {
+            $scope.displayNavBar = "display:none;";
+            $scope.mainViewWidth = "col-xs-12";
         } else {
-            $scope.navBarDisplay = "display:block";
-            $scope.tabContentWidth = "col-sm-10 col-md-10 col-offset-sm-2 col-offset-md-2";
+            $scope.displayNavBar = "display:block;";
+            $scope.mainViewWidth = "col-xs-10";
         }
+        $scope.isDisplayNavBar = !$scope.isDisplayNavBar;
     }
+
     if ($localStorage.favorites == null) {
         $localStorage.favorites = {};
     }
-    $http.get("../main.php?query=legislators?per_page=all")
+    $http.get("../main.php?query=legislators")
             .then(function (response) {
                 $scope.legislatorsByHouse = [];
                 $scope.legislatorsBySenate = [];
@@ -185,8 +259,7 @@ app.controller('customerCtrl', function($scope, $localStorage, $http) {
                     }
                 });
             });
-    history.senate_passage_result__exists=true
-    $http.get("../main.php?query=bills?per_page=50&history.active=true")
+    $http.get("../main.php?query=billsTrue")
             .then(function (response) {
                 $scope.activebills = response.data.results;
                 angular.forEach(response.data.results, function(item) {
@@ -195,7 +268,7 @@ app.controller('customerCtrl', function($scope, $localStorage, $http) {
                 });
             });
 
-    $http.get("../main.php?query=bills?per_page=50&history.active=false")
+    $http.get("../main.php?query=billsFalse")
             .then(function (response) {
                 $scope.newbills = response.data.results;
                 angular.forEach(response.data.results, function(item) {
@@ -204,7 +277,7 @@ app.controller('customerCtrl', function($scope, $localStorage, $http) {
                 });
             });
 
-    $http.get("../main.php?query=committees?per_page=all")
+    $http.get("../main.php?query=committees")
             .then(function (response) {
                 $scope.committeesByHouse = [];
                 $scope.committeesBySenate = [];
@@ -262,17 +335,17 @@ app.controller('customerCtrl', function($scope, $localStorage, $http) {
     }
 
     $scope.committee_phone = function(x) {
-        if (x.committee_phone == null) {
+        if (x.phone == null) {
             return "N.A.";
         }
-        return x.committee_phone;
+        return x.phone;
     }
 
     $scope.committee_office = function(x) {
-        if (x.committee_office == null) {
+        if (x.office == null) {
             return "N.A.";
         }
-        return x.committee_office;
+        return x.office;
     }
 
     $scope.currentPageFL = 1;
@@ -300,6 +373,7 @@ app.controller('customerCtrl', function($scope, $localStorage, $http) {
     $scope.clickViewBillsDetails = function(x) {
         $scope.billitem = x;
         $scope.bill_id = x.bill_id;
+        $scope.bill_type = x.bill_type;
         $scope.bill_title = x.official_title;
         $scope.bill_sponsor = x.sponsor.title + ". " + x.sponsor.last_name + ", " + x.sponsor.first_name;
         if (x.chamber == "house") {
