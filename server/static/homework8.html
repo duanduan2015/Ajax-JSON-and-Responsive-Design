@@ -34,17 +34,19 @@
             </div>
             <div class="row">
                 <div class="col-xs-2" style="padding-left:0px;padding-right:0px;padding-bottom:0px;{{displayNavBar}}">
-                    <ul class="nav navbar-tabs sidebar" style="padding-left:10px;background-color: #2a2c30">
-                        <li style="align:left;margin-top:35px;margin-bottom:35px;"><h3><a data-toggle="tab" href="#legislatorPage" style="text-decoration:none;"><i class="fa fa-user whiteGrey" aria-hidden="true" style="margin-right:10px"></i><span class="my-nav-item whiteGrey">Legislators</span></a></h3></li>
-                        <li style="align:left;margin-top:35px;margin-bottom:35px;"><h3><a data-toggle="tab" href="#billPage" style="text-decoration:none;"><i class="fa fa-file-o whiteGrey" aria-hidden="true" style="margin-right:10px"></i><span class="my-nav-item whiteGrey">Bills</span></a></h3></li>
-                        <li style="align:left;margin-top:35px;margin-bottom:35px;"><h3><a data-toggle="tab" href="#committeePage" style="text-decoration:none;"><i class="fa fa-sign-in whiteGrey" aria-hidden="true" style="margin-right:10px"></i><span class="my-nav-item whiteGrey">Committees</span></a></h3></li>
-                        <li style="align:left;margin-top:35px;margin-bottom:35px;"><h3><a data-toggle="tab" href="#favoritePage" style="text-decoration:none;"><i class="fa fa-star whiteGrey" aria-hidden="true" style="margin-right:10px"></i><span class="my-nav-item whiteGrey">Favorites</span></a></h3></li>
+                    <ul class="nav navbar-tabs" style="padding-left:10px;background-color: #2a2c30">
+                        <span class="my-sidebar">
+                        <li style="align:left;margin-top:35px;margin-bottom:35px;"><h3><a data-toggle="tab" href="#legislatorPage" style="text-decoration:none;"><i class="fa fa-user" aria-hidden="true" style="margin-right:10px"></i><span class="my-nav-item">Legislators</span></a></h3></li>
+                        <li style="align:left;margin-top:35px;margin-bottom:35px;"><h3><a data-toggle="tab" href="#billPage" style="text-decoration:none;"><i class="fa fa-file-o" aria-hidden="true" style="margin-right:10px"></i><span class="my-nav-item">Bills</span></a></h3></li>
+                        <li style="align:left;margin-top:35px;margin-bottom:35px;"><h3><a data-toggle="tab" href="#committeePage" style="text-decoration:none;"><i class="fa fa-sign-in" aria-hidden="true" style="margin-right:10px"></i><span class="my-nav-item">Committees</span></a></h3></li>
+                        <li style="align:left;margin-top:35px;margin-bottom:35px;"><h3><a data-toggle="tab" href="#favoritePage" style="text-decoration:none;"><i class="fa fa-star" aria-hidden="true" style="margin-right:10px"></i><span class="my-nav-item">Favorites</span></a></h3></li>
                         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                        </span>
                     </ul>
                 </div>
                 <div class="{{mainViewWidth}}"  style="padding-left:0px;padding-right:0px">
                     <div class="tab-content" style="background-color:#d4d4d6">
-                        <div id="legislatorPage" class="tab-pane fade in active well well-lg" style="padding:1%">
+                        <div id="legislatorPage" class="tab-pane fade in active well well-lg" style="padding:1%;padding-bottom:30%;">
                             <h2 class="page-header" style="margin-top:0px;padding-top:10px;">Legislators</h2>
                             <div class="well well-lg" style="background-color:white;padding:0px;box-shadow:5px 5px 20px grey;">
                                 <div id="legislatorCarousel" class="carousel slide"  data-ride="carousel" data-interval="false">
@@ -52,7 +54,7 @@
                                     <div class="carousel-inner" role="listbox">
                                         <div class="item active">
                                             <ul class="nav nav-tabs">
-                                                <li class="active" style="margin:0px;"><a data-toggle="tab" href="#state" style="color:black;">By State</a></li>
+                                                <li class="active" style="margin:0px;"><a data-toggle="tab" href="#state">By State</a></li>
                                                 <li style="margin:0px;"><a data-toggle="tab" href="#house" style="color:black;">House</a></li>
                                                 <li style="margin:0px;"><a data-toggle="tab" href="#senate" style="color:black;">Senate</a></li>
                                             </ul>
