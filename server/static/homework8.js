@@ -1,7 +1,7 @@
 var stateNames = {
     "AL": "Alabama",
     "AK": "Alaska",
-    "AS": "American",
+    "AS": "American Samoa",
     "AZ": "Arizona",
     "AR": "Arkansas",
     "CA": "California",
