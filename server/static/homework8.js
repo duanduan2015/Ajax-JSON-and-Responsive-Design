@@ -118,7 +118,22 @@ app.filter("nameFilter", function() {
         var conds = normCond.split(" ");
         angular.forEach(items, function(item) {
             var canAdd = false;
+            var r = "republican";
+            var d = "democrat";
+            var i = "independent";
             angular.forEach(conds, function(cond) {
+                if (item.party == "R" && r.includes(cond)) {
+                    canAdd = true;
+                    return;
+                }
+                if (item.party == "D" && d.includes(cond)) {
+                    canAdd = true;
+                    return;
+                }
+                if (item.party == "I" && i.includes(cond)) {
+                    canAdd = true;
+                    return;
+                }
                 if (item.first_name.toLowerCase().includes(cond)) {
                     canAdd = true;
                     return;
@@ -148,11 +163,27 @@ app.filter("billFilter", function() {
     return function(items, cond) {
         var filtered = [];
         var normCond = '';
+        var s = "senate";
+        var h = "house";
+        var j = "joint";
         if (cond != null)  normCond = cond.trim().toLowerCase();
         var conds = normCond.split(" ");
         angular.forEach(items, function(item) {
             var canAdd = false;
             angular.forEach(conds, function(cond) {
+                if (item.chamber == "house" && h.includes(cond)) {
+                    canAdd = true;
+                    return;
+                }
+                if (item.chamber == "senate" && s.includes(cond)) {
+                    canAdd = true;
+                    return;
+                }
+                if (item.chamber = "joint" && j.includes(cond)) {
+                    canAdd = true;
+                    return;
+                }
+
                 if (item.bill_id.toLowerCase().includes(cond)) {
                     canAdd = true;
                     return;
@@ -174,6 +205,10 @@ app.filter("billFilter", function() {
                     return;
                 }
                 if (item.sponsor_id.toLowerCase().includes(cond)) {
+                    canAdd = true;
+                    return;
+                }
+                if (item.introduced_on != null && item.introduced_on.includes(cond)) {
                     canAdd = true;
                     return;
                 }
