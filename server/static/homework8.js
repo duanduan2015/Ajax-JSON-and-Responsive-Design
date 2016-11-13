@@ -117,38 +117,24 @@ app.filter("nameFilter", function() {
         if (cond != null)  normCond = cond.trim().toLowerCase();
         var conds = normCond.split(" ");
         angular.forEach(items, function(item) {
-            var canAdd = false;
-            var r = "republican";
-            var d = "democrat";
-            var i = "independent";
+            var canAdd = true;
             angular.forEach(conds, function(cond) {
-                if (item.party == "R" && r.includes(cond)) {
-                    canAdd = true;
-                    return;
+
+                searchString = item.first_name.toLowerCase() + " " +
+                    item.last_name.toLowerCase() + " " +
+                    item.state_name.toLowerCase() + " " +
+                    item.district;
+
+                if (item.party == "R") {
+                    searchString += " republican";
+                } else if (item.party == "D") {
+                    searchString += " democrat";
+                } else {
+                    searchString += " independent";
                 }
-                if (item.party == "D" && d.includes(cond)) {
-                    canAdd = true;
-                    return;
-                }
-                if (item.party == "I" && i.includes(cond)) {
-                    canAdd = true;
-                    return;
-                }
-                if (item.first_name.toLowerCase().includes(cond)) {
-                    canAdd = true;
-                    return;
-                }
-                if (item.last_name.toLowerCase().includes(cond)) {
-                    canAdd = true;
-                    return;
-                }
-                if (parseInt(cond) != null && item.district == parseInt(cond)) {
-                    canAdd = true;
-                    return;
-                }
-                if (item.state_name.toLowerCase().includes(cond)) {
-                    canAdd = true;
-                    return;
+
+                if (!searchString.includes(cond)) {
+                    canAdd = false;
                 }
             });
             if (canAdd) {
@@ -163,54 +149,22 @@ app.filter("billFilter", function() {
     return function(items, cond) {
         var filtered = [];
         var normCond = '';
-        var s = "senate";
-        var h = "house";
-        var j = "joint";
         if (cond != null)  normCond = cond.trim().toLowerCase();
         var conds = normCond.split(" ");
         angular.forEach(items, function(item) {
-            var canAdd = false;
+            var canAdd = true;
             angular.forEach(conds, function(cond) {
-                if (item.chamber == "house" && h.includes(cond)) {
-                    canAdd = true;
-                    return;
-                }
-                if (item.chamber == "senate" && s.includes(cond)) {
-                    canAdd = true;
-                    return;
-                }
-                if (item.chamber = "joint" && j.includes(cond)) {
-                    canAdd = true;
-                    return;
-                }
 
-                if (item.bill_id.toLowerCase().includes(cond)) {
-                    canAdd = true;
-                    return;
-                }
-                if (item.bill_type.toLowerCase().includes(cond)) {
-                    canAdd = true;
-                    return;
-                }
-                if (item.official_title.toLowerCase().includes(cond)) {
-                    canAdd = true;
-                    return;
-                }
-                if (item.sponsor.first_name.toLowerCase().includes(cond)) {
-                    canAdd = true;
-                    return;
-                }
-                if (item.sponsor.last_name.toLowerCase().includes(cond)) {
-                    canAdd = true;
-                    return;
-                }
-                if (item.sponsor_id.toLowerCase().includes(cond)) {
-                    canAdd = true;
-                    return;
-                }
-                if (item.introduced_on != null && item.introduced_on.includes(cond)) {
-                    canAdd = true;
-                    return;
+                searchString = item.chamber.toLowerCase() + " " +
+                    item.bill_id.toLowerCase() + " " +
+                    item.bill_type.toLowerCase() + " " +
+                    item.official_title.toLowerCase() + " " +
+                    item.sponsor.last_name.toLowerCase() + " " +
+                    item.sponsor.first_name.toLowerCase() + " " +
+                    item.introduced_on.toLowerCase();
+
+                if (!searchString.includes(cond)) {
+                    canAdd = false;
                 }
             });
             if (canAdd) {
@@ -228,27 +182,25 @@ app.filter("committeeFilter", function() {
         if (cond != null)  normCond = cond.trim().toLowerCase();
         var conds = normCond.split(" ");
         angular.forEach(items, function(item) {
-            var canAdd = false;
+            var canAdd = true;
             angular.forEach(conds, function(cond) {
-                if (item.committee_id.toLowerCase().includes(cond)) {
-                    canAdd = true;
-                    return;
+
+                searchString = item.committee_id.toLowerCase() + " " +
+                    item.name.toLowerCase();
+
+                if (item.parent_committee_id != null) {
+                    searchString += " " + item.parent_committee_id.toLowerCase();
                 }
-                if (item.name.toLowerCase().includes(cond)) {
-                    canAdd = true;
-                    return;
+
+                if (item.phone != null) {
+                    searchString += " " + item.phone.toLowerCase();
                 }
-                if (item.paretn_committee_id != null && item.parent_committee_id.toLowerCase().includes(cond)) {
-                    canAdd = true;
-                    return;
+                if (item.office != null) {
+                    searchString += " " + item.office.toLowerCase();
                 }
-                if (item.phone != null && item.phone.toLowerCase().includes(cond)) {
-                    canAdd = true;
-                    return;
-                }
-                if (item.office != null && item.office.toLowerCase().includes(cond)) {
-                    canAdd = true;
-                    return;
+
+                if (!searchString.includes(cond)) {
+                    canAdd = false;
                 }
             });
             if (canAdd) {
