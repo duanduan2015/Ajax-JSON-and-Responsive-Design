@@ -34,10 +34,10 @@
                 <div class="col-xs-2" style="padding-left:0px;padding-right:0px;padding-bottom:0px;{{displayNavBar}}">
                     <ul class="nav navbar-tabs" style="padding-left:10px;background-color: #2a2c30">
                         <span class="my-sidebar">
-                        <li style="align:left;margin-top:35px;margin-bottom:35px;"><h3><a data-toggle="tab" href="#legislatorPage" style="text-decoration:none;"><i class="fa fa-user" aria-hidden="true" style="margin-right:10px"></i><span class="my-nav-item">Legislators</span></a></h3></li>
-                        <li style="align:left;margin-top:35px;margin-bottom:35px;"><h3><a data-toggle="tab" href="#billPage" style="text-decoration:none;"><i class="fa fa-file-o" aria-hidden="true" style="margin-right:10px"></i><span class="my-nav-item">Bills</span></a></h3></li>
-                        <li style="align:left;margin-top:35px;margin-bottom:35px;"><h3><a data-toggle="tab" href="#committeePage" style="text-decoration:none;"><i class="fa fa-sign-in" aria-hidden="true" style="margin-right:10px"></i><span class="my-nav-item">Committees</span></a></h3></li>
-                        <li style="align:left;margin-top:35px;margin-bottom:35px;"><h3><a data-toggle="tab" href="#favoritePage" style="text-decoration:none;"><i class="fa fa-star" aria-hidden="true" style="margin-right:10px"></i><span class="my-nav-item">Favorites</span></a></h3></li>
+                        <li class="my-nav-icon"><h3><a data-toggle="tab" href="#legislatorPage"><i class="fa fa-user" aria-hidden="true" ></i><span class="my-nav-item">Legislators</span></a></h3></li>
+                        <li class="my-nav-icon"><h3><a data-toggle="tab" href="#billPage"><i class="fa fa-file-o" aria-hidden="true"></i><span class="my-nav-item">Bills</span></a></h3></li>
+                        <li class="my-nav-icon"><h3><a data-toggle="tab" href="#committeePage"><i class="fa fa-sign-in" aria-hidden="true"></i><span class="my-nav-item">Committees</span></a></h3></li>
+                        <li class="my-nav-icon"><h3><a data-toggle="tab" href="#favoritePage"><i class="fa fa-star" aria-hidden="true"></i><span class="my-nav-item">Favorites</span></a></h3></li>
                         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
                         </span>
                     </ul>
@@ -233,7 +233,7 @@
                                                             <td class="hide-small">{{ chamberName(x.chamber) }}</td>
                                                             <td class="hide-small">{{ x.bill_type }}</td>
                                                             <td class="hide-small">{{ x.congress }}</td>
-                                                            <td><a target="_blank" ng-href="{{ x.last_version.urls.pdf }}">Link</a></td>
+                                                            <td><a target="_blank" ng-href="{{ x.last_version.urls.pdf }}" style="{{hasLink(x)}}">{{linkName(x)}}</a></td>
                                                         </tr>
                                                     </table>
                                                 </div>

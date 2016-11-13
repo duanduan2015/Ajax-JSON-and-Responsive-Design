@@ -30,6 +30,7 @@
 
 .my-nav-item {
     display: blcok;
+    margin-left: 5px;
 }
 .center {
     text-align: center;
@@ -56,11 +57,23 @@
 }
 .hide-small {
 }
+.my-nav-icon {
+    text-align:left;
+    margin-top:35px;
+    margin-bottom:35px;
+    margin-right:10px; 
+    text-decoration:none;
+}
 @media (max-width: 600px) {
     .my-nav-item {
         display: none;
     }
     .hide-small {
         display: none;
+    }
+    .my-nav-icon {
+        text-align: center;
+        margin-top:20px;
+        margin-bottom:20px;
     }
 }

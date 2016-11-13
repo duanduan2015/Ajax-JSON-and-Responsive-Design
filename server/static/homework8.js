@@ -403,7 +403,18 @@ app.controller('customerCtrl', function($scope, $localStorage, $http) {
         $('a[href="#billPage"]').tab('show');
         $scope.clickViewBillsDetails(x);
     }
-
+    $scope.hasLink = function(x) {
+        if (x.last_version == null || x.last_version.urls == null || x.last_version.urls.pdf == null) {
+            return "color:black;text-decoration: none;";
+        }
+        return "";
+    }
+    $scope.linkName = function(x) {
+        if (x.last_version == null || x.last_version.urls == null || x.last_version.urls.pdf == null) {
+            return "N.A.";
+        }
+        return "Link";
+    }
     $scope.billitem = {};
     $scope.clickViewBillsDetails = function(x) {
         $scope.billitem = x;
