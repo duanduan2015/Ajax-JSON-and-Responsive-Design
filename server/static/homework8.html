@@ -493,7 +493,7 @@
                                                     <tbody>
                                                     <tr ng-repeat="x in legislators | favoriteLegislator: true ">
                                                         <td>
-                                                            <button class="btn btn-default pull-left" type="button" ng-click="toggleFavorite(x)">
+                                                            <button class="btn btn-default pull-left deleteBar" type="button" ng-click="toggleFavorite(x)">
                                                                 <i class="fa fa-trash" aria-hidden="true"></i>
                                                             </button>
                                                         </td>
@@ -519,7 +519,7 @@
                                                     <tbody>
                                                     <tr ng-repeat="x in bills | favoriteBill: true">
                                                         <td>
-                                                            <button class="btn btn-default pull-left" type="button" ng-click="toggleFavorite(x)">
+                                                            <button class="btn btn-default pull-left deleteBar" type="button" ng-click="toggleFavorite(x)">
                                                                 <i class="fa fa-trash" aria-hidden="true"></i>
                                                             </button>
                                                         </td>
@@ -545,7 +545,7 @@
                                                     <tr><th></th><th>Chamber</th><th>Committee ID</th><th>Name</th><th>Parent Committee</th><th>Sub Committee</th></tr>
                                                     <tr ng-repeat="x in committees | favoriteCommittee: true">
                                                         <td>
-                                                            <button class="btn btn-default pull-left" type="button" ng-click="toggleFavorite(x)">
+                                                            <button class="btn btn-default pull-left deleteBar" type="button" ng-click="toggleFavorite(x)">
                                                                 <i class="fa fa-trash" aria-hidden="true"></i>
                                                             </button>
                                                         </td>
