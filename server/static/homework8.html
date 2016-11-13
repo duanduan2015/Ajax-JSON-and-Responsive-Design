@@ -87,14 +87,14 @@
                                                         </div>
                                                     </div>
                                                     <div id="house" class="tab-pane fade">
-                                                        <div class="panel panel-default">
+                                                        <div class="panel panel-default zero-margin-small">
                                                             <div class="row panel-heading" style="width:100%;margin:0px;">
                                                                 <div class="col-xs-6 col-sm-9"><b>Legislators By House</b></div>
                                                                 <div class="col-xs-6 col-sm-3 pull-right">
                                                                     <input type="text" class="form-control" ng-model="nameFilterTextByHouse" placeholder="Search">
                                                                 </div>
                                                             </div>
-                                                            <div class="panel-body" style="background-color:white;paddiing:5px;padding-top:0px;margin:0px;">
+                                                            <div class="panel-body panel-body-padding">
                                                                 <div class="table-responsive">
                                                                     <table class="table table-hover">
                                                                         <thead><tr><th>Party</th><th>Name</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr></thead>
@@ -117,14 +117,14 @@
                                                         </div>
                                                     </div>
                                                     <div id="senate" class="tab-pane fade">
-                                                        <div class="panel panel-default">
+                                                        <div class="panel panel-default zero-margin-small">
                                                             <div class="row panel-heading" style="width:100%;margin:0px;">
                                                                 <div class="col-xs-6 col-sm-9"><b>Legislators By Senate</b></div>
                                                                 <div class="col-xs-6 col-sm-3 pull-right">
                                                                     <input type="text" class="form-control" ng-model="nameFilterTextBySenate" placeholder="Search">
                                                                 </div>
                                                             </div>
-                                                            <div class="panel-body" style="background-color:white;paddiing:10px;padding-top:0px;margin:0px;">
+                                                            <div class="panel-body panel-body-padding">
                                                                 <div class="table-responsive">
                                                                     <table class="table table-hover">
                                                                         <thead><tr><th>Party</th><th>Nmae</th><th>Chamber</th><th>District</th><th>State</th><th></th></tr></thead>
@@ -251,17 +251,17 @@
                                                 <li class="active" style="margin:0px;"><a data-toggle="tab" href="#activeBills">Active Bills</a></li>
                                                 <li style="margin:0px;"><a data-toggle="tab" href="#newBills">New Bills</a></li>
                                             </ul>
-                                            <div style="width:96%;margin-left:2%;margin-top:2%;margin-bottom:2%;" >
+                                            <div class="panel-margin">
                                                 <div class="tab-content">
                                                     <div id="activeBills" class="tab-pane fade in active">
-                                                        <div class="panel panel-default">
+                                                        <div class="panel panel-default zero-margin-small">
                                                             <div class="row panel-heading" style="paddiing:0px;margin:0px;">
                                                                 <div class="col-xs-6 col-sm-9"><b>Active Bills</b></div>
                                                                 <div class="col-xs-6 col-sm-3 pull-right">
                                                                     <input type="text" class="form-control" ng-model="activeBillId" placeholder="Search">
                                                                 </div>
                                                             </div>
-                                                            <div class="panel-body" style="background-color:white;paddiing:5px;padding-top:0px;margin:0px;">
+                                                            <div class="panel-body panel-body-padding">
                                                                 <div class="table-responsive">
                                                                     <table class="table table-hover">
                                                                         <thead><tr><th>Bill ID</th><th>Bill Type</th><th class="hide-small">Title</th><th>Chamber</th><th>Introducted On</th><th>Sponsor</th><th></th></tr></thead>
@@ -285,14 +285,14 @@
                                                         </div>
                                                     </div>
                                                     <div id="newBills" class="tab-pane fade">
-                                                        <div class="panel panel-default">
+                                                        <div class="panel panel-default zero-margin-small">
                                                             <div class="row panel-heading" style="paddiing:0px;margin:0px;">
                                                                 <div class="col-xs-6 col-sm-9"><b>New Bills</b></div>
                                                                 <div class="col-xs-6 col-sm-3 pull-right">
                                                                     <input type="text" class="form-control" ng-model="newBillId" placeholder="Search">
                                                                 </div>
                                                             </div>
-                                                            <div class="panel-body" style="background-color:white;paddiing:5px;padding-top:0px;margin:0px;">
+                                                            <div class="panel-body panel-body-padding">
                                                                 <div class="table-responsive">
                                                                     <table class="table table-hover">
                                                                         <thead><tr><th>Bill ID</th><th>Bill Type</th><th class="hide-small">Title</th><th>Chamber</th><th>Introducted On</th><th>Sponsor</th><th></th></tr></thead>
@@ -364,17 +364,17 @@
                                     <li style="margin:0px;"><a data-toggle="tab" href="#comBySenate" >Senate</a></li>
                                     <li style="margin:0px;"><a data-toggle="tab" href="#comByJoint" >Joint</a></li>
                                 </ul>
-                                <div style="width:96%;margin-left:2%;margin-top:2%;margin-bottom:2%" >
+                                <div class="panel-margin">
                                     <div class="tab-content">
                                         <div id="comByHouse" class="tab-pane fade in active">
-                                            <div class="panel panel-default">
+                                            <div class="panel panel-default zero-margin-small">
                                                 <div class="row panel-heading" style="paddiing:0px;margin:0px;">
                                                     <div class="col-xs-6 col-sm-9"><b>House</b></div>
                                                     <div class="col-xs-6 col-sm-3 pull-right">
                                                         <input type="text" class="form-control" ng-model="committeeIdByHouse" placeholder="Search">
                                                     </div>
                                                 </div>
-                                                <div class="panel-body" style="background-color:white;paddiing:5px;padding-top:0px;margin:0px;">
+                                                <div class="panel-body panel-body-padding">
                                                     <div class="table-responsive">
                                                         <table class="table table-hover">
                                                             <thead><tr><th></th><th>Chamber</th><th>Committee ID</th><th>Name</th><th>Parent Committee</th><th>Contact</th><th>Office</th></tr></thead>
@@ -402,14 +402,14 @@
                                             </div>
                                         </div>
                                         <div id="comBySenate" class="tab-pane fade">
-                                            <div class="panel panel-default">
+                                            <div class="panel panel-default zero-margin-small">
                                                 <div class="row panel-heading" style="paddiing:0px;margin:0px;">
                                                     <div class="col-xs-6 col-sm-9"><b>Senate</b></div>
                                                     <div class="col-xs-6 col-sm-3 pull-right">
                                                         <input type="text" class="form-control" ng-model="committeeIdBySenate" placeholder="Search">
                                                     </div>
                                                 </div>
-                                                <div class="panel-body" style="background-color:white;paddiing:5px;padding-top:0px;margin:0px;">
+                                                <div class="panel-body panel-body-padding">
                                                     <div class="table-responsive">
                                                         <table class="table table-hover">
                                                             <thead><tr><th></th><th>Chamber</th><th>Committee ID</th><th>Name</th><th>Parent Committee</th></tr></thead>
@@ -435,14 +435,14 @@
                                             </div>
                                         </div>
                                         <div id="comByJoint" class="tab-pane fade">
-                                            <div class="panel panel-default">
+                                            <div class="panel panel-default zero-margin-small">
                                                 <div class="row panel-heading" style="paddiing:0px;margin:0px;">
                                                     <div class="col-xs-6 col-sm-9"><b>Joint</b></div>
                                                     <div class="col-xs-6 col-sm-3 pull-right">
                                                         <input type="text" class="form-control" ng-model="committeeIdByJoint" placeholder="Search">
                                                     </div>
                                                 </div>
-                                                <div class="panel-body" style="background-color:white;paddiing:5px;padding-top:0px;margin:0px;">
+                                                <div class="panel-body panel-body-padding">
                                                     <div class="table-responsive">
                                                         <table class="table table-hover">
                                                             <thead><tr><th></th><th>Chamber</th><th>Committee ID</th><th>Name</th></tr></thead>
@@ -478,7 +478,7 @@
                                     <li style="padding:0px;margin:0px;"><a data-toggle="tab" href="#favoriteBill" style="padding-left:7px;padding-right:7px;">Bills</a></li>
                                     <li style="padding:0px;margin:0px;"><a data-toggle="tab" href="#favoriteCommittee" style="padding-left:7px;padding-right:7px;">Committees</a></li>
                                 </ul>
-                                <div style="width:96%;margin-left:2%;margin-top:2%;margin-bottom:2%;" >
+                                <div class="panel-margin">
                                     <div class="tab-content">
                                         <div id="favoriteLegislator" class="tab-pane fade in active">
                                             <div class="row well well-sm" style="paddiing:0px;margin:0px;">
