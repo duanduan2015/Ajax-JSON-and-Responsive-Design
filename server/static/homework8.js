@@ -265,14 +265,14 @@ app.controller('customerCtrl', function($scope, $localStorage, $http) {
     $scope.committees = [];
     $scope.legislators = [];
     $scope.isDisplayNavBar = true;
-    $scope.mainViewWidth = "col-xs-10";
+    $scope.mainViewWidth = "col-xs-10 col-md-10;";
     $scope.toggleNavBar = function() {
         if ($scope.isDisplayNavBar == true) {
             $scope.displayNavBar = "display:none;";
-            $scope.mainViewWidth = "col-xs-12";
+            $scope.mainViewWidth = "col-xs-12 col-md-12";
         } else {
             $scope.displayNavBar = "display:block;";
-            $scope.mainViewWidth = "col-xs-10";
+            $scope.mainViewWidth = "col-xs-10 col-md-10";
         }
         $scope.isDisplayNavBar = !$scope.isDisplayNavBar;
     }

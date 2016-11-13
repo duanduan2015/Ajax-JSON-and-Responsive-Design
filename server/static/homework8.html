@@ -20,29 +20,26 @@
     </head>
     <body>
         <div class="container-fluid" ng-app="myApp" ng-controller="customerCtrl">
-            <div class="row" >
-                <div style="margin-top:5px;margin-bottom:5px">
-                    <div class="col-xs-1 col-md-4 pull-left">
+            <div class="fixed">
+                <div class="row" align="center">
+                    <div class="pull-left" style="padding-left:10px;">
                         <h4><i class="fa fa-bars" aria-hidden="true" ng-click="toggleNavBar()"></i></h4>
                     </div>
-                    <div class="col-xs-11 col-md-4" align="center">
-                        <a target="_blank"  href="http://sunlightfoundation.com/" target="_blank"><img width="20%" src="http://homework8-148505.appspot.com/static/images/logo.png"/></a><b>Congress API</b>
-                    </div>
+                    <a target="_blank"  href="http://sunlightfoundation.com/" target="_blank"><img style="width:60px" src="http://homework8-148505.appspot.com/static/images/logo.png"/></a><b>Congress API</b>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-2" style="padding-left:0px;padding-right:0px;padding-bottom:0px;{{displayNavBar}}">
-                    <ul class="nav navbar-tabs" style="padding-left:10px;background-color: #2a2c30">
-                        <span class="my-sidebar">
+            <div class="row" style="margin-top:39px;">
+                <div class="col-xs-2 col-md-2" style="padding-top:0px;padding-left:0px;padding-right:0px;padding-bottom:0px;{{displayNavBar}}">
+                    <ul class="nav navbar-tabs" style="width:17%;height:100%;margin-right:0px;padding-right:0px;padding-left:10px;background-color:#2a2c30;position:fixed">
+                        <div class="my-sidebar">
                         <li class="my-nav-icon"><h3><a data-toggle="tab" href="#legislatorPage"><i class="fa fa-user" aria-hidden="true" ></i><span class="my-nav-item">Legislators</span></a></h3></li>
                         <li class="my-nav-icon"><h3><a data-toggle="tab" href="#billPage"><i class="fa fa-file-o" aria-hidden="true"></i><span class="my-nav-item">Bills</span></a></h3></li>
                         <li class="my-nav-icon"><h3><a data-toggle="tab" href="#committeePage"><i class="fa fa-sign-in" aria-hidden="true"></i><span class="my-nav-item">Committees</span></a></h3></li>
                         <li class="my-nav-icon"><h3><a data-toggle="tab" href="#favoritePage"><i class="fa fa-star" aria-hidden="true"></i><span class="my-nav-item">Favorites</span></a></h3></li>
-                        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                        </span>
+                        </div>
                     </ul>
                 </div>
-                <div class="{{mainViewWidth}}"  style="padding-left:0px;padding-right:0px">
+                <div class="{{mainViewWidth}}"  style="margin-left:0px;padding-left:0px;padding-right:0px">
                     <div class="tab-content" style="background-color:#d4d4d6">
                         <div id="legislatorPage" class="tab-pane fade in active well well-lg" style="padding:1%;padding-bottom:30%;">
                             <h2 class="page-header" style="margin-top:0px;padding-top:10px;">Legislators</h2>
