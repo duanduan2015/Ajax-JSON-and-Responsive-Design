@@ -91,9 +91,17 @@ div.fixed {
 
 .zero-margin-small{
 }
-
+.side-bar-style {
+    z-index: 100;
+    width:17%;
+    height:100%;
+    margin-right:0px;
+    padding-right:0px;
+    padding-left:10px;
+    background-color:#2a2c30;
+    position:fixed;
+}
 @media (max-width: 600px) {
-
     .panel-body-padding {
         padding:0px;
     }
