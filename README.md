@@ -1,14 +1,20 @@
-# congress search: a web app to get newest congreess information 
+# Congress Search: a responsive web app to get newest congreess information 
 
-## url: http://congress-search.ddns.net/static/congress.html
+## URL: http://congress-search.ddns.net/static/congress.html
 
-user interface 
+###user interface for legislators on desktop 
 ![alt tag](https://github.com/duanduan2015/Congress-search-website/blob/master/images/0.png)
+###user interface for bills on desktop 
 ![alt tag](https://github.com/duanduan2015/Congress-search-website/blob/master/images/1.png)
+###user interface for legislator details on desktop 
 ![alt tag](https://github.com/duanduan2015/Congress-search-website/blob/master/images/2.png)
+###user interface for legislators on mobile
+![alt tag](https://github.com/duanduan2015/Congress-search-website/blob/master/images/3.png)
+###user interface for legislator details on mobile
+![alt tag](https://github.com/duanduan2015/Congress-search-website/blob/master/images/4.png)
 
-## using propublica congress api to get data for this web app
+## Using [ProPublica Congress API](https://projects.propublica.org/api-docs/congress-api/) to get data for this web app
 
 
-## techniques used 
-AngularJS, html5, CSS, Bootstrap
+## Frameworks Used 
+AngularJS, Bootstrap
