@@ -65,7 +65,7 @@ app.filter("stateFilter", function() {
     return function(items, cond) {
         var filtered = [];
         angular.forEach(items, function(item) {
-            if (stateNames[item.state] == cond || cond === undefined || cond == 'All States') {
+            if (item.state == cond || cond === undefined || cond == 'All States') {
                 filtered.push(item);
             }
         });
@@ -122,7 +122,7 @@ app.filter("nameFilter", function() {
 
                 searchString = item.first_name.toLowerCase() + " " +
                     item.last_name.toLowerCase() + " " +
-                    item.state_name.toLowerCase() + " " +
+                    item.state.toLowerCase() + " " +
                     item.district;
 
                 if (item.party == "R") {
@@ -158,46 +158,9 @@ app.filter("billFilter", function() {
                 searchString = item.chamber.toLowerCase() + " " +
                     item.bill_id.toLowerCase() + " " +
                     item.bill_type.toLowerCase() + " " +
-                    item.official_title.toLowerCase() + " " +
-                    item.sponsor.last_name.toLowerCase() + " " +
-                    item.sponsor.first_name.toLowerCase() + " " +
-                    item.introduced_on.toLowerCase();
-
-                if (!searchString.includes(cond)) {
-                    canAdd = false;
-                }
-            });
-            if (canAdd) {
-                filtered.push(item);
-            }
-        });
-        return filtered;
-    };
-});
-
-app.filter("committeeFilter", function() {
-    return function(items, cond) {
-        var filtered = [];
-        var normCond = '';
-        if (cond != null)  normCond = cond.trim().toLowerCase();
-        var conds = normCond.split(" ");
-        angular.forEach(items, function(item) {
-            var canAdd = true;
-            angular.forEach(conds, function(cond) {
-
-                searchString = item.committee_id.toLowerCase() + " " +
-                    item.name.toLowerCase();
-
-                if (item.parent_committee_id != null) {
-                    searchString += " " + item.parent_committee_id.toLowerCase();
-                }
-
-                if (item.phone != null) {
-                    searchString += " " + item.phone.toLowerCase();
-                }
-                if (item.office != null) {
-                    searchString += " " + item.office.toLowerCase();
-                }
+                    item.title.toLowerCase() + " " +
+                    item.sponsor_name.toLowerCase() + " " +
+                    item.introduced_date.toLowerCase();
 
                 if (!searchString.includes(cond)) {
                     canAdd = false;
@@ -214,8 +177,10 @@ app.filter("committeeFilter", function() {
 app.controller('customerCtrl', function($scope, $localStorage, $http) {
 
     $scope.bills = [];
-    $scope.committees = [];
+    $scope.activebillsByHouse = [];
+    $scope.activebillsBySenate = [];
     $scope.legislators = [];
+    $scope.legislatorBills = [];
     $scope.isDisplayNavBar = true;
     $scope.mainViewWidth = "col-xs-10 col-md-10;";
     $scope.toggleNavBar = function() {
@@ -232,55 +197,51 @@ app.controller('customerCtrl', function($scope, $localStorage, $http) {
     if ($localStorage.favorites == null) {
         $localStorage.favorites = {};
     }
-    $http.get("../main.php?query=legislators")
+
+    $http.get("../main.php?query=legislators&chamber=senate")
+            .then(function (response) {
+                $scope.legislatorsBySenate = [];
+                angular.forEach(response.data.results[0].members, function(item) {
+                    item.is_favorite = item.id in $localStorage.favorites; 
+                    item.state = stateNames[item.state];
+                    item.chamber = "senate";
+                    $scope.legislators.push(item);
+                    $scope.legislatorsBySenate.push(item);
+                });
+            });
+
+    $http.get("../main.php?query=legislators&chamber=house")
             .then(function (response) {
                 $scope.legislatorsByHouse = [];
-                $scope.legislatorsBySenate = [];
-                angular.forEach(response.data.results, function(item) {
-                    item.is_favorite = item.bioguide_id in $localStorage.favorites; 
+                angular.forEach(response.data.results[0].members, function(item) {
+                    item.is_favorite = item.id in $localStorage.favorites; 
+                    item.state = stateNames[item.state];
+                    item.chamber = "house";
                     $scope.legislators.push(item);
-                    if (item.chamber == "house") {
-                        $scope.legislatorsByHouse.push(item);
-                    } else {
-                        $scope.legislatorsBySenate.push(item);
-                    }
+                    $scope.legislatorsByHouse.push(item);
                 });
             });
-    $http.get("../main.php?query=billsTrue")
+
+    $http.get("../main.php?query=billsTrue&chamber=house")
             .then(function (response) {
-                $scope.activebills = response.data.results;
-                angular.forEach(response.data.results, function(item) {
+                angular.forEach(response.data.results[0].bills, function(item) {
                     item.is_favorite = item.bill_id in $localStorage.favorites;
+                    item.chamber = "house";
+                    $scope.activebillsByHouse.push(item);
                     $scope.bills.push(item);
                 });
             });
 
-    $http.get("../main.php?query=billsFalse")
+    $http.get("../main.php?query=billsTrue&chamber=senate")
             .then(function (response) {
-                $scope.newbills = response.data.results;
-                angular.forEach(response.data.results, function(item) {
+                angular.forEach(response.data.results[0].bills, function(item) {
                     item.is_favorite = item.bill_id in $localStorage.favorites;
+                    item.chamber = "senate";
+                    $scope.activebillsBySenate.push(item);
                     $scope.bills.push(item);
                 });
             });
 
-    $http.get("../main.php?query=committees")
-            .then(function (response) {
-                $scope.committeesByHouse = [];
-                $scope.committeesBySenate = [];
-                $scope.committeesByJoint = [];
-                angular.forEach(response.data.results, function(item) {
-                    item.is_favorite = item.committee_id in $localStorage.favorites;
-                    $scope.committees.push(item);
-                    if (item.chamber == "house") {
-                        $scope.committeesByHouse.push(item);
-                    } else if (item.chamber == "senate") {
-                        $scope.committeesBySenate.push(item);
-                    } else {
-                        $scope.committeesByJoint.push(item);
-                    }
-                });
-            });
 
     $scope.getEmail = function(x) {
         if (x.oc_email == null) {
@@ -290,50 +251,9 @@ app.controller('customerCtrl', function($scope, $localStorage, $http) {
     }
 
     $scope.getImage = function(x) {
-        return 'https://theunitedstates.io/images/congress/225x275/' + x.bioguide_id + '.jpg'; 
+        return 'https://theunitedstates.io/images/congress/225x275/' + x.id + '.jpg'; 
     }
 
-    $scope.sub_committee = function(x) {
-        if (x.subcommittee == true) {
-            return "true";
-        }
-        return "false";
-    }
-
-    $scope.committee_id = function(x) {
-        if (x.committee_id == null) {
-            return "N.A.";
-        }
-        return x.committee_id;
-    }
-
-    $scope.committee_name = function(x) {
-        if (x.name == null) {
-            return "N.A.";
-        }
-        return x.name;
-    }
-
-    $scope.parent_committee_id = function(x) {
-        if (x.parent_committee_id == null) {
-            return "N.A.";
-        }
-        return x.parent_committee_id;
-    }
-
-    $scope.committee_phone = function(x) {
-        if (x.phone == null) {
-            return "N.A.";
-        }
-        return x.phone;
-    }
-
-    $scope.committee_office = function(x) {
-        if (x.office == null) {
-            return "N.A.";
-        }
-        return x.office;
-    }
 
     $scope.currentPageFL = 1;
     $scope.currentPageLegislatorState = 1;
@@ -344,25 +264,19 @@ app.controller('customerCtrl', function($scope, $localStorage, $http) {
     $scope.currentPageCommitteeHouse = 1;
     $scope.currentPageCommitteeSenate = 1;
     $scope.currentPageCommitteeJoint = 1;
-    $scope.getTermPercent = function(x) {
-        var start = moment(x.term_start);
-        var end = moment(x.term_end);
-        var now = moment();
-        return Math.round((now - start) * 100 / (end - start));
-    }
 
     $scope.goBackViewBillsDetails = function(x) {
         $('a[href="#billPage"]').tab('show');
         $scope.clickViewBillsDetails(x);
     }
     $scope.hasLink = function(x) {
-        if (x.last_version == null || x.last_version.urls == null || x.last_version.urls.pdf == null) {
+        if (x.govtrack_url == null) {
             return "color:black;text-decoration: none;";
         }
         return "";
     }
     $scope.linkName = function(x) {
-        if (x.last_version == null || x.last_version.urls == null || x.last_version.urls.pdf == null) {
+        if (x.govtrack_url == null) {
             return "N.A.";
         }
         return "Link";
@@ -372,27 +286,15 @@ app.controller('customerCtrl', function($scope, $localStorage, $http) {
         $scope.billitem = x;
         $scope.bill_id = x.bill_id;
         $scope.bill_type = x.bill_type;
-        $scope.bill_title = x.official_title;
-        $scope.bill_sponsor = x.sponsor.title + ". " + x.sponsor.last_name + ", " + x.sponsor.first_name;
+        $scope.bill_title = x.title;
+        $scope.bill_sponsor = x.sponsor_title + " " + x.sponsor_name;
         if (x.chamber == "house") {
             $scope.bill_chamber = "House";
         } else {
             $scope.bill_chamber = "Senate";
         }
-        if (x.history.active == true) {
-            $scope.bill_status = "Active";
-        } else {
-            $scope.bill_status = "New";
-        }
-        $scope.bill_introduced_on = x.introduced_on;
-        $scope.bill_congress_url = x.urls.congress;
-        if (x.last_version == null) {
-            $scope.bill_version_status = "N.A.";
-            $scope.bill_url = "N.A.";
-        } else {
-            $scope.bill_version_status = x.last_version.version_name;
-            $scope.bill_url = x.last_version.urls.pdf;
-        }
+        $scope.bill_introduced_on = x.introduced_date;
+        $scope.bill_congress_url = x.congressdotgov_url;
         $("#billCarousel").carousel(1);
     }
 
@@ -410,8 +312,8 @@ app.controller('customerCtrl', function($scope, $localStorage, $http) {
                 delete $localStorage.favorites[l.committee_id];
                 return;
             }
-            if (l.bioguide_id != null) {
-                delete $localStorage.favorites[l.bioguide_id];
+            if (l.id != null) {
+                delete $localStorage.favorites[l.id];
                 return;
             }
             if (l.bill_id != null) {
@@ -424,8 +326,8 @@ app.controller('customerCtrl', function($scope, $localStorage, $http) {
                 $localStorage.favorites[l.committee_id] = {};
                 return;
             }
-            if (l.bioguide_id != null) {
-                $localStorage.favorites[l.bioguide_id] = {};
+            if (l.id != null) {
+                $localStorage.favorites[l.id] = {};
                 return;
             }
             if (l.bill_id != null) {
@@ -442,68 +344,76 @@ app.controller('customerCtrl', function($scope, $localStorage, $http) {
     $scope.lgitem = {};
     $scope.clickViewDetails = function(x) {
         $scope.lgitem = x;
-        $scope.img_src = 'https://theunitedstates.io/images/congress/225x275/' + x.bioguide_id + '.jpg'; 
-        $scope.name = x.title + ". " + x.last_name + ", " + x.first_name;
-        if (x.oc_email == null) {
-            $scope.email = "N.A";
+        $scope.img_src = 'https://theunitedstates.io/images/congress/225x275/' + x.id + '.jpg'; 
+        $scope.name = x.last_name + ", " + x.first_name;
+        if (x.contact_form == null) {
+            $scope.contact_form = "N.A";
         } else {
-            $scope.email = x.oc_email;
+            $scope.contact_form = x.contact_form;
         }
         if (x.chamber == "house") {
             $scope.chamber = "House";
         } else {
             $scope.chamber = "Senate";
         }
-        $scope.contact = x.phone;
+        $scope.phone = x.phone;
         $scope.partyLogoImg = $scope.partyLogo(x.party);
         if (x.party == "R") $scope.partyName = "Republican";
         if (x.party == "D") $scope.partyName = "Democrat";
         if (x.party == "I") $scope.partyName = "Independent";
-        $scope.startTerm = x.term_start;
-        $scope.endTerm = x.term_end;
-        $scope.percent = $scope.getTermPercent(x);
+        $scope.endTerm = x.next_election;
+        $scope.percent = x.votes_with_party_pct;
         if (x.office == null) {
             $scope.office = x.office;
         } else {
             $scope.office = x.office;
         }
-        $scope.state = x.state_name;
+        $scope.state = x.state;
         if (x.fax == null) {
             $scope.fax = "N.A";
         } else {
             $scope.fax = x.fax;
         }
-        $scope.birthday = x.birthday;
-        if (x.twitter_id == null) {
+        $scope.birthday = x.date_of_birth;
+        if (x.twitter_account == null) {
             $scope.twitterAddress = null;
             $scope.twitterImg = null;
         } else {
-            $scope.twitterAddress = 'https://twitter.com/' + x.twitter_id;
+            $scope.twitterAddress = 'https://twitter.com/' + x.twitter_account;
             $scope.twitterImg = 'images/t.png';
         }
-        if (x.facebook_id == null) {
+        if (x.youtube_account == null) {
+            $scope.youtubeAddress = null;
+            $scope.youtubeImg = null;
+        } else {
+            $scope.youtubeAddress = 'https://www.youtube.com/' + x.youtube_account;
+            $scope.youtubeImg = 'images/y.png';
+        }
+        if (x.facebook_account == null) {
             $scope.facebookAddress = null;
             $scope.facebookImg = null;
         } else {
-            $scope.facebookAddress = 'https://www.facebook.com/' + x.facebook_id;
+            $scope.facebookAddress = 'https://www.facebook.com/' + x.facebook_account;
             $scope.facebookImg = 'images/f.png';
         }
-        if (x.website == null) {
+        if (x.url == null) {
             $scope.website = null;
             $scope.websiteImg = null;
         } else {
-            $scope.website = x.website;
+            $scope.website = x.url;
             $scope.websiteImg = 'images/w.png';
         }
 
-        $http.get("../main.php?query=committees?member_ids=" + x.bioguide_id + "&per_page=5")
+        $http.get("../main.php?query=memberBills&id=" + x.id)
             .then(function (response) {
-                $scope.legislatorCommittees = response.data.results;
+                if (response.data.results !== null) {
+                    $scope.legislatorBills = response.data.results[0].bills;
+                }
             });
 
-        $http.get("../main.php?query=bills?sponsor_id=" + x.bioguide_id + "&per_page=5")
+        $http.get("../main.php?query=committees?member_ids=" + x.id + "&per_page=5")
             .then(function (response) {
-                $scope.legislatorBills = response.data.results;
+                $scope.legislatorCommittees = response.data.results;
             });
 
         $("#legislatorCarousel").carousel(1);
